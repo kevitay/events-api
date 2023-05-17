@@ -1,6 +1,7 @@
 package com.galvanize.events;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 @Entity
@@ -16,8 +17,10 @@ public class Event {
 
     private Date startDateTime;
     private Date endDateTime;
-    private Address startLocation;
-    private Address endLocation;
+
+    private HashMap<String, String> startLocation;
+
+    private HashMap<String, String> endLocation;
     private String participantListId; //todo get data type
     private Double baseCost;
     private Double totalCost;
@@ -27,7 +30,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(String creatorID, String organization, String name, String type, String description, Date startDateTime, Date endDateTime, Address startLocation, Address endLocation, String participantListId, Double baseCost, Double totalCost, String status, Boolean isPublic) {
+    public Event(String creatorID, String organization, String name, String type, String description, Date startDateTime, Date endDateTime, HashMap<String, String> startLocation, HashMap<String, String> endLocation, String participantListId, Double baseCost, Double totalCost, String status, Boolean isPublic) {
         this.creatorID = creatorID;
         this.organization = organization;
         this.name = name;
@@ -100,19 +103,19 @@ public class Event {
         this.endDateTime = endDateTime;
     }
 
-    public Address getStartLocation() {
+    public HashMap<String, String> getStartLocation() {
         return startLocation;
     }
 
-    public void setStartLocation(Address startLocation) {
+    public void setStartLocation(HashMap<String, String> startLocation) {
         this.startLocation = startLocation;
     }
 
-    public Address getEndLocation() {
+    public HashMap<String, String> getEndLocation() {
         return endLocation;
     }
 
-    public void setEndLocation(Address endLocation) {
+    public void setEndLocation(HashMap<String, String> endLocation) {
         this.endLocation = endLocation;
     }
 

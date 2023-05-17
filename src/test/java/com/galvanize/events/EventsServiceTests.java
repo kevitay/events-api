@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
@@ -28,8 +29,18 @@ public class EventsServiceTests {
 
     @Test
     void getEvents() {
-        Address startAddress = new Address("Tiki Bar","555 Elm Street", "Anyplace", "GA", 55555);
-        Address endAddress = new Address("Tavern","555 Main Street", "Anyplace", "GA", 55555);
+        HashMap<String, String> startAddress = new HashMap<>();
+        startAddress.put("name", "Tiki Bar");
+        startAddress.put("address", "555 Elm Street");
+        startAddress.put("city", "Anyplace");
+        startAddress.put("state", "GA");
+        startAddress.put("zipcode", "55555");
+        HashMap<String, String> endAddress = new HashMap<>();
+        endAddress.put("name", "Tavern");
+        endAddress.put("address", "555 Main Street");
+        endAddress.put("city", "Anyplace");
+        endAddress.put("state", "GA");
+        endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
@@ -41,8 +52,18 @@ public class EventsServiceTests {
 
     @Test
     void addEvent() {
-        Address startAddress = new Address("Tiki Bar","555 Elm Street", "Anyplace", "GA", 55555);
-        Address endAddress = new Address("Tavern","555 Main Street", "Anyplace", "GA", 55555);
+        HashMap<String, String> startAddress = new HashMap<>();
+        startAddress.put("name", "Tiki Bar");
+        startAddress.put("address", "555 Elm Street");
+        startAddress.put("city", "Anyplace");
+        startAddress.put("state", "GA");
+        startAddress.put("zipcode", "55555");
+        HashMap<String, String> endAddress = new HashMap<>();
+        endAddress.put("name", "Tavern");
+        endAddress.put("address", "555 Main Street");
+        endAddress.put("city", "Anyplace");
+        endAddress.put("state", "GA");
+        endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
         Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);

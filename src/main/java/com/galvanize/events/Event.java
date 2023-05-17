@@ -1,11 +1,13 @@
 package com.galvanize.events;
-
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
+@Table(name = "events")
 public class Event {
-
+    @Id
+    private final UUID id = UUID.randomUUID();
     private String creatorID; //todo finalize format
     private String organization;
     private String name;

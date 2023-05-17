@@ -14,4 +14,12 @@ public class EventList {
     public EventList(List<Event> eventList) {
         this.eventList = eventList;
     }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
 }

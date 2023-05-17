@@ -29,7 +29,7 @@ public class EventsControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/event"))
                .andDo(print())
                .andExpect(MockMvcResultMatchers.status().isOk())
-               .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+               .andExpect(MockMvcResultMatchers.jsonPath("$.eventList").isEmpty());
     }
 
     @Test

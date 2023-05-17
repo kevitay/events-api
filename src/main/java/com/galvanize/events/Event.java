@@ -22,8 +22,11 @@ public class Event {
     private String status; //todo change to enum
     private Boolean isPublic;
 
+    public Event() {
+    }
 
-    public Event(String organization, String name, String type, String description, Date startDateTime, Date endDateTime, Address startLocation, Address endLocation, String participantListId, Double baseCost, Double totalCost, String status, Boolean isPublic) {
+    public Event(String creatorID, String organization, String name, String type, String description, Date startDateTime, Date endDateTime, Address startLocation, Address endLocation, String participantListId, Double baseCost, Double totalCost, String status, Boolean isPublic) {
+        this.creatorID = creatorID;
         this.organization = organization;
         this.name = name;
         this.type = type;
@@ -37,6 +40,14 @@ public class Event {
         this.totalCost = totalCost;
         this.status = status;
         this.isPublic = isPublic;
+    }
+
+    public String getCreatorID() {
+        return creatorID;
+    }
+
+    public void setCreatorID(String creatorID) {
+        this.creatorID = creatorID;
     }
 
     public String getOrganization() {

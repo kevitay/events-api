@@ -38,7 +38,7 @@ public class EventsControllerTests {
                 .andExpect(jsonPath("$.organization").value("Phils Buds"))
                 .andExpect(jsonPath("$.name").value("St. Patricks Bar Crawl '01"))
                 .andExpect(jsonPath("$.description").value("Phil's 21st Birthday Pub Crawl"));
-
+        //todo validate other fields in response
     }
 
 

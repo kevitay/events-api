@@ -1,4 +1,6 @@
 package com.galvanize.events;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,11 +13,13 @@ public class Event {
     private final UUID id = UUID.randomUUID();
     private String creatorID; //todo finalize format
     private String organization;
+    @Column(name = "event_name")
     private String name;
     private String type;
     private String description;
-
+    @JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
     private Date startDateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
     private Date endDateTime;
 
     private HashMap<String, String> startLocation;
@@ -23,9 +27,10 @@ public class Event {
     private HashMap<String, String> endLocation;
     private String participantListId; //todo get data type
     private Double baseCost;
-    private Double totalCost;
+    private Double totalCost;//todo evaluate if this should be in event
     private String status; //todo change to enum
     private Boolean isPublic;
+    //todo should we store an itinerary ID
 
     public Event() {
     }

@@ -7,6 +7,10 @@ public class EventsService {
 
     EventsRepository eventsRepository;
 
+    public EventsService(EventsRepository eventsRepository) {
+        this.eventsRepository = eventsRepository;
+    }
+
 
     public EventList getEvents() {
         return new EventList(eventsRepository.findAll());

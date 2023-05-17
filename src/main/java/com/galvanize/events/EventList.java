@@ -22,4 +22,8 @@ public class EventList {
     public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
     }
+
+    public boolean isEmpty() {
+        return this.eventList.isEmpty();
+    }
 }

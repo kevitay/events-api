@@ -9,6 +9,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "events")
 public class Event {
+
     @Id
     private final UUID id = UUID.randomUUID();
     private String creatorID; //todo finalize format
@@ -50,6 +51,10 @@ public class Event {
         this.totalCost = totalCost;
         this.status = status;
         this.isPublic = isPublic;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getCreatorID() {

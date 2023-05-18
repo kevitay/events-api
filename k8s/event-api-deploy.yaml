@@ -14,9 +14,12 @@ spec:
       labels:
         app: event-api
     spec:
+      imagePullSecrets: # Be sure this name matches the secret name in K8s that you created for the docker-registry entry
+        - name: event-api-token
       containers:
-        - name: capstone-event-api-image
-          image: athalfmile/capstone-event-api-image:mvp
+        - image: $IMAGE
+          name: event-api
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:

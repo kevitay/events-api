@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-api-service
+spec:
+  selector:
+    app: event-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

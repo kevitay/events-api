@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-api-deploy
+  labels:
+    app: event-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-api
+  template:
+    metadata:
+      labels:
+        app: event-api
+    spec:
+      imagePullSecrets: # Be sure this name matches the secret name in K8s that you created for the docker-registry entry
+        - name: event-api-token
+      containers:
+        - image: $IMAGE
+          name: event-api
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: postgres
+            - name: DB_HOST
+              value: jan2023-db-service
+            - name: DB_PORT
+              value: '5432'
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: jan2023-pg-config
+                  key: POSTGRES_DB
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: jan2023-pg-config
+                  key: POSTGRES_USER
+            - name: DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: jan2023-pg-config
+                  key: POSTGRES_PASSWORD
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-key-secret
+                  key: JWT_SECRET_KEY

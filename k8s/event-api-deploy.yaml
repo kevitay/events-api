@@ -39,7 +39,7 @@ spec:
                 configMapKeyRef:
                   name: jan2023-pg-config
                   key: POSTGRES_USER
-            - name: DB_PWD
+            - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: jan2023-pg-config

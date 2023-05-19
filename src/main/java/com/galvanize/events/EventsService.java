@@ -2,6 +2,9 @@ package com.galvanize.events;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class EventsService {
 
@@ -22,5 +25,14 @@ public class EventsService {
         } catch(IllegalArgumentException e) {
             throw new InvalidEventException();
         }
+    }
+
+    public void deleteEvent(UUID id) {
+      Optional<Event> oEvent = eventsRepository.findById(id);
+      if(oEvent.isPresent()){
+          eventsRepository.delete(oEvent.get());
+      }else{
+          throw new EventNotFoundException();
+      }
     }
 }

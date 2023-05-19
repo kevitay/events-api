@@ -7,12 +7,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -104,4 +102,14 @@ public class EventsServiceTests {
 
         verify(eventsRepository).delete(ArgumentMatchers.any(Event.class));
     }
+
+    @Test
+    public void deleteEventByIDNotExists() {
+        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(Optional.empty());
+        assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
+            eventsService.deleteEvent(UUID.randomUUID());
+        });
+    }
+
 }

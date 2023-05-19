@@ -2,6 +2,7 @@ package com.galvanize.events;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,12 +14,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Date;
 import java.util.HashMap;
 
+
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.UUID;
 
 @WebMvcTest(EventsController.class)
 public class EventsControllerTests {
@@ -70,6 +74,19 @@ public class EventsControllerTests {
         //todo validate other fields in response
     }
 
+    @Test
+    public void deleteEvent() throws Exception {
+        mockMvc.perform(delete(String.format("/api/event/%s", UUID.randomUUID().toString())))
+                .andExpect(status().isAccepted());
+        verify(eventsService).deleteEvent(ArgumentMatchers.any(UUID.class));
+    }
 
+    @Test
+    public void deleteUnknownIdThrowsNoContent() throws Exception {
+        doThrow(new EventNotFoundException()).when(eventsService).deleteEvent(ArgumentMatchers.any(UUID.class));
+        mockMvc.perform(MockMvcRequestBuilders.delete(String.format("/api/event/%s", UUID.randomUUID().toString())))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());;
+    }
 
 }

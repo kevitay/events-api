@@ -8,7 +8,7 @@ WORKDIR /app
 # Take the jar from the build folder and COPY it over as app.jar. This will require there to be a build already in that directory. Please modify the first path to your needs.
 
 # Grade jar path:
-COPY build/libs/*.jar app.jar
+COPY build/libs/*SNAPSHOT.jar app.jar
 
 # Maven jar path
 #COPY target/*.jar app.jar

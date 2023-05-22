@@ -24,6 +24,12 @@ public class EventsController {
         return eventList;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Event> getEventById(@PathVariable UUID id) {
+        Event event = eventsService.getEventById(id);
+
+        return event.equals(new Event()) ? ResponseEntity.noContent().build() : ResponseEntity.ok(event);
+    }
 
 
     @PostMapping

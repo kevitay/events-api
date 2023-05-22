@@ -62,11 +62,12 @@ public class EventsControllerTests {
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
         Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
         when(eventsService.getEventById(any(UUID.class))).thenReturn(existingEvent);
-        UUID id = UUID.randomUUID();
+        UUID id = existingEvent.getId();
+
         mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/%s",id)))
                .andDo(print())
                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(jsonPath("$.id").value(id))
+               .andExpect(jsonPath("$.id").value(id.toString()))
                .andExpect(jsonPath("$.organization").value("Phils Buds"))
                .andExpect(jsonPath("$.name").value("St. Patricks Bar Crawl"))
                .andExpect(jsonPath("$.description").value("21st Birthday Pub Crawl"));

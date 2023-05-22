@@ -29,7 +29,6 @@ public class EventsController {
         return eventsService.getEventById(id);
     }
 
-
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event newEvent){
         eventsService.addEvent(newEvent);
@@ -52,4 +51,8 @@ public class EventsController {
     public void noEventFound(EventNotFoundException e) {
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void invalidEventFound(InvalidEventException e) {
+    }
 }

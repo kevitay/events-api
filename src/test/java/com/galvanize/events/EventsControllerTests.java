@@ -241,4 +241,14 @@ public class EventsControllerTests {
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
+
+    @Test
+    public void updateStatusThrowsInvalidUpdateException() throws Exception {
+        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEvent(any(UUID.class),ArgumentMatchers.anyString());
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"status\": \"upcoming\"}"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
 }

@@ -46,6 +46,11 @@ public class EventsController {
         return eventsService.updateEvent(event);
     }
 
+    @PatchMapping("/{id}")
+    public Event updateEvent(@PathVariable UUID id, @RequestBody UpdateEventRequest update) {
+        return eventsService.updateEvent(id, update.getStatus());
+    }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void noEventFound(EventNotFoundException e) {
@@ -54,5 +59,10 @@ public class EventsController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void invalidEventFound(InvalidEventException e) {
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void invalidEventUpdate(InvalidEventUpdateException w) {
     }
 }

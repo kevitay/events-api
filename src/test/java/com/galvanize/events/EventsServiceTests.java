@@ -157,23 +157,51 @@ public class EventsServiceTests {
         });
     }
 
-        @Test
-        void deleteEvent_byID() {
-            HashMap<String, String> startAddress = new HashMap<>();
-            startAddress.put("name", "Tiki Bar");
-            startAddress.put("address", "555 Elm Street");
-            startAddress.put("city", "Anyplace");
-            startAddress.put("state", "GA");
-            startAddress.put("zipcode", "55555");
-            HashMap<String, String> endAddress = new HashMap<>();
-            endAddress.put("name", "Tavern");
-            endAddress.put("address", "555 Main Street");
-            endAddress.put("city", "Anyplace");
-            endAddress.put("state", "GA");
-            endAddress.put("zipcode", "55555");
-            Date startDate= new Date(2001, 01, 01, 10,00, 00);
-            Date endDate= new Date(2001, 01, 02, 04,00, 00);
-            Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+    @Test
+    public void updateEventStatusReturnsUpdatedEvent(){
+        HashMap<String, String> startAddress = new HashMap<>();
+        startAddress.put("name", "Tiki Bar");
+        startAddress.put("address", "555 Elm Street");
+        startAddress.put("city", "Anyplace");
+        startAddress.put("state", "GA");
+        startAddress.put("zipcode", "55555");
+        HashMap<String, String> endAddress = new HashMap<>();
+        endAddress.put("name", "Tavern");
+        endAddress.put("address", "555 Main Street");
+        endAddress.put("city", "Anyplace");
+        endAddress.put("state", "GA");
+        endAddress.put("zipcode", "55555");
+        Date startDate= new Date(2001, 01, 01, 10,00, 00);
+        Date endDate= new Date(2001, 01, 02, 04,00, 00);
+        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(java.util.Optional.of(event));
+        when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
+
+        UUID id = event.getId();
+        Event updatedEvent = eventsService.updateEvent(id, "upcoming");
+        assertThat(event).isNotNull();
+        assertThat(updatedEvent.getId()).isEqualTo(event.getId());
+        assertThat(updatedEvent.getStatus()).isEqualTo(event.getStatus());
+    }
+
+    @Test
+    void deleteEvent_byID() {
+        HashMap<String, String> startAddress = new HashMap<>();
+        startAddress.put("name", "Tiki Bar");
+        startAddress.put("address", "555 Elm Street");
+        startAddress.put("city", "Anyplace");
+        startAddress.put("state", "GA");
+        startAddress.put("zipcode", "55555");
+        HashMap<String, String> endAddress = new HashMap<>();
+        endAddress.put("name", "Tavern");
+        endAddress.put("address", "555 Main Street");
+        endAddress.put("city", "Anyplace");
+        endAddress.put("state", "GA");
+        endAddress.put("zipcode", "55555");
+        Date startDate= new Date(2001, 01, 01, 10,00, 00);
+        Date endDate= new Date(2001, 01, 02, 04,00, 00);
+        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
         when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
                .thenReturn(java.util.Optional.of(event));
 

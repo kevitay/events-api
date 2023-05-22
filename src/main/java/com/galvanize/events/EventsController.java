@@ -24,6 +24,12 @@ public class EventsController {
         return eventList;
     }
 
+    @GetMapping("/{id}")
+    public Event getEventById(@PathVariable UUID id) {
+        return eventsService.getEventById(id);
+    }
+
+
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event newEvent){
         eventsService.addEvent(newEvent);
@@ -36,8 +42,14 @@ public class EventsController {
          eventsService.deleteEvent(id);
     }
 
+    @PutMapping("/{id}")
+    public Event updateEvent(@PathVariable UUID id, @RequestBody Event event) {
+        return eventsService.updateEvent(event);
+    }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void noAutoFound(EventNotFoundException e) {
+    public void noEventFound(EventNotFoundException e) {
     }
+
 }

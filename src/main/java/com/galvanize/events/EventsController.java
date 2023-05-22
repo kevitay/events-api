@@ -51,4 +51,5 @@ public class EventsController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void noEventFound(EventNotFoundException e) {
     }
+
 }

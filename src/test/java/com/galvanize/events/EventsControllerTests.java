@@ -83,7 +83,9 @@ public class EventsControllerTests {
 
     @Test
     public void getEVentByIdBadFormat() throws Exception{
-        //todo add test for controller bad request when input is not a valid UUID
+        mockMvc.perform(MockMvcRequestBuilders.get(("/api/event/AABBCC")))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test

@@ -231,4 +231,14 @@ public class EventsControllerTests {
                 .andExpect(jsonPath("$.id").value(id.toString()))
                 .andExpect(jsonPath("$.status").value("upcoming"));
     }
+
+    @Test
+    public void updateStatusUnknownIdThrowsNoContent() throws Exception {
+        doThrow(new EventNotFoundException()).when(eventsService).updateEvent(any(UUID.class),ArgumentMatchers.anyString());
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"status\": \"upcoming\"}"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 }

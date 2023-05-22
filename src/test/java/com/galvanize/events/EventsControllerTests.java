@@ -44,6 +44,49 @@ public class EventsControllerTests {
     }
 
     @Test
+    public void getEventByIdReturnsEvent() throws Exception{
+        HashMap<String, String> startAddress = new HashMap<>();
+        startAddress.put("name", "Tiki Bar");
+        startAddress.put("address", "555 Elm Street");
+        startAddress.put("city", "Anyplace");
+        startAddress.put("state", "GA");
+        startAddress.put("zipcode", "55555");
+        HashMap<String, String> endAddress = new HashMap<>();
+        endAddress.put("name", "Tavern");
+        endAddress.put("address", "555 Main Street");
+        endAddress.put("city", "Anyplace");
+        endAddress.put("state", "GA");
+        endAddress.put("zipcode", "55555");
+
+        Date startDate= new Date(2001, 01, 01, 10,00, 00);
+        Date endDate= new Date(2001, 01, 02, 04,00, 00);
+        Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+        when(eventsService.getEventById(any(UUID.class))).thenReturn(existingEvent);
+        UUID id = existingEvent.getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/%s",id)))
+               .andDo(print())
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(jsonPath("$.id").value(id.toString()))
+               .andExpect(jsonPath("$.organization").value("Phils Buds"))
+               .andExpect(jsonPath("$.name").value("St. Patricks Bar Crawl"))
+               .andExpect(jsonPath("$.description").value("21st Birthday Pub Crawl"));
+    }
+
+    @Test
+    public void getEventByIdReturnsNoContent() throws Exception{
+         doThrow(new EventNotFoundException()).when(eventsService).getEventById(ArgumentMatchers.any(UUID.class));
+         mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/%s",UUID.randomUUID())))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    public void getEVentByIdBadFormat() throws Exception{
+        //todo add test for controller bad request when input is not a valid UUID
+    }
+
+    @Test
     public void postEventReturnsEvent() throws Exception {
         //String jsonEvent = "{\"creatorId\": \"aabbcc1234\",\"organization\": \"Phils Buds\",\"name\": \"St. Patricks Bar Crawl '01\",\"type\": \"Social\",\"description\": \"Phil's 21st Birthday Pub Crawl\",\"startDateTime\": \"2001-01-01T16:00-04:00\",\"endDateTime\": \"2001-01-02T02:00-04:00\",\"startLocation\": {\"name\": \"Phil's Tiki Bar\",\"address\": \"123 Example St\",\"city\": \"Normal\",\"state\": \"IL\",\"zipCode\": 61761},\"endLocation\": {\"name\": \"Greg's Oldtowne Tavern\",\"address\": \"123 Example St\",\"city\": \"Normal\",\"state\": \"IL\",\"zipCode\": 61761},\"participantListId\": \"1\",\"base_cost\": \"50\",\"total_cost\": \"50\",\"status\": \"planned\",\"isPublic\": false}";
         HashMap<String, String> startAddress = new HashMap<>();

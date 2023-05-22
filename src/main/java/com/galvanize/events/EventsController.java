@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
-    @RequestMapping("/api/event")
+@RequestMapping("/api/event")
 public class EventsController {
 
     EventsService eventsService;
@@ -22,6 +23,12 @@ public class EventsController {
         eventList = eventsService.getEvents();
         return eventList;
     }
+
+    @GetMapping("/{id}")
+    public Event getEventById(@PathVariable UUID id) {
+        return eventsService.getEventById(id);
+    }
+
 
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event newEvent){
@@ -42,6 +49,6 @@ public class EventsController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void noAutoFound(EventNotFoundException e) {
+    public void noEventFound(EventNotFoundException e) {
     }
 }

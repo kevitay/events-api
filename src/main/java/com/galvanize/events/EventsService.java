@@ -19,6 +19,10 @@ public class EventsService {
         return new EventList(eventsRepository.findAll());
     }
 
+    public Event getEventById(UUID id) {
+        return eventsRepository.findById(id).orElseThrow(EventNotFoundException::new);
+    }
+
     public Event addEvent(Event newEvent) {
         try{
             return eventsRepository.save(newEvent);

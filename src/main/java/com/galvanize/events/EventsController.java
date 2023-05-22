@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
-    @RequestMapping("/api/event")
+@RequestMapping("/api/event")
 public class EventsController {
 
     EventsService eventsService;

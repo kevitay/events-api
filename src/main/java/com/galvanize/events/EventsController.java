@@ -25,10 +25,8 @@ public class EventsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Event> getEventById(@PathVariable UUID id) {
-        Event event = eventsService.getEventById(id);
-
-        return event.equals(new Event()) ? ResponseEntity.noContent().build() : ResponseEntity.ok(event);
+    public Event getEventById(@PathVariable UUID id) {
+        return eventsService.getEventById(id);
     }
 
 
@@ -46,6 +44,6 @@ public class EventsController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void noAutoFound(EventNotFoundException e) {
+    public void noEventFound(EventNotFoundException e) {
     }
 }

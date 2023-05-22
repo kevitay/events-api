@@ -78,6 +78,15 @@ public class EventsServiceTests {
     }
 
     @Test
+    public void getEventByIdNoContent() {
+        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(Optional.empty());
+        assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
+            eventsService.getEventById(UUID.randomUUID());
+        });
+    }
+
+    @Test
     void addEvent() {
         HashMap<String, String> startAddress = new HashMap<>();
         startAddress.put("name", "Tiki Bar");

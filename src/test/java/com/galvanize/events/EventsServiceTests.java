@@ -52,6 +52,11 @@ public class EventsServiceTests {
     }
 
     @Test
+    public void getEventById() {
+
+    }
+
+    @Test
     void addEvent() {
         HashMap<String, String> startAddress = new HashMap<>();
         startAddress.put("name", "Tiki Bar");

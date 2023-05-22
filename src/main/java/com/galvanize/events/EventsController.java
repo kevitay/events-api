@@ -23,6 +23,8 @@ public class EventsController {
         return eventList;
     }
 
+
+
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event newEvent){
         eventsService.addEvent(newEvent);

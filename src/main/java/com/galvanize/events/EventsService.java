@@ -35,4 +35,8 @@ public class EventsService {
           throw new EventNotFoundException();
       }
     }
+
+    public Event getEventById(UUID id) {
+        return eventsRepository.findById(id).orElseThrow(EventNotFoundException::new);
+    }
 }

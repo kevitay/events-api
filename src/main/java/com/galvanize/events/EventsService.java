@@ -14,7 +14,6 @@ public class EventsService {
         this.eventsRepository = eventsRepository;
     }
 
-
     public EventList getEvents() {
         return new EventList(eventsRepository.findAll());
     }
@@ -39,7 +38,6 @@ public class EventsService {
           throw new EventNotFoundException();
       }
     }
-
 
     public Event updateEvent(Event updatedEvent) {
          Optional<Event> oEvent = eventsRepository.findById(updatedEvent.getId());

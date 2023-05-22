@@ -52,4 +52,10 @@ public class EventsController {
     public void noEventFound(EventNotFoundException e) {
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void noEventFound(InvalidEventException e) {
+    }
+
+
 }

@@ -115,6 +115,15 @@ public class EventsServiceTests {
     }
 
     @Test
+    void AddEventBadRequest() {
+        when(eventsRepository.save(ArgumentMatchers.any()))
+                .thenThrow(IllegalArgumentException.class);
+        assertThatExceptionOfType(InvalidEventException.class).isThrownBy(() ->{
+            eventsService.addEvent(new Event());
+        });
+    }
+
+    @Test
     void updateEventReturnsEvent() {
         HashMap<String, String> startAddress = new HashMap<>();
         startAddress.put("name", "Tiki Bar");

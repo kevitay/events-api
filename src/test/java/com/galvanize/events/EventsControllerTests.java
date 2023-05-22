@@ -88,7 +88,7 @@ public class EventsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
-    @Test
+        @Test
     public void postEventReturnsEvent() throws Exception {
         //String jsonEvent = "{\"creatorId\": \"aabbcc1234\",\"organization\": \"Phils Buds\",\"name\": \"St. Patricks Bar Crawl '01\",\"type\": \"Social\",\"description\": \"Phil's 21st Birthday Pub Crawl\",\"startDateTime\": \"2001-01-01T16:00-04:00\",\"endDateTime\": \"2001-01-02T02:00-04:00\",\"startLocation\": {\"name\": \"Phil's Tiki Bar\",\"address\": \"123 Example St\",\"city\": \"Normal\",\"state\": \"IL\",\"zipCode\": 61761},\"endLocation\": {\"name\": \"Greg's Oldtowne Tavern\",\"address\": \"123 Example St\",\"city\": \"Normal\",\"state\": \"IL\",\"zipCode\": 61761},\"participantListId\": \"1\",\"base_cost\": \"50\",\"total_cost\": \"50\",\"status\": \"planned\",\"isPublic\": false}";
         HashMap<String, String> startAddress = new HashMap<>();
@@ -117,6 +117,16 @@ public class EventsControllerTests {
                 .andExpect(jsonPath("$.name").value("St. Patricks Bar Crawl"))
                 .andExpect(jsonPath("$.description").value("21st Birthday Pub Crawl"));
         //todo validate other fields in response
+    }
+
+    @Test
+    public void postRequestReturnsBadRequest() throws Exception {
+        when(eventsService.addEvent(any(Event.class))).thenThrow(InvalidEventException.class);
+        mockMvc.perform(post("/api/event")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(new Event())))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -169,6 +179,16 @@ public class EventsControllerTests {
                 .andExpect(jsonPath("$.organization").value("Bud's Buds"))
                 .andExpect(jsonPath("$.name").value("Different Name"))
                 .andExpect(jsonPath("$.description").value("New Birthday Bash"));
+    }
+
+    @Test
+    public void updateThrowsBadRequest() throws Exception {
+        doThrow(new InvalidEventException()).when(eventsService).updateEvent(ArgumentMatchers.any(Event.class));
+        mockMvc.perform(MockMvcRequestBuilders.put(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(new Event())))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test

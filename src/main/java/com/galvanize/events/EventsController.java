@@ -35,6 +35,11 @@ public class EventsController {
          eventsService.deleteEvent(id);
     }
 
+    @PutMapping("/{id}")
+    public Event updateEvent(@PathVariable UUID id, @RequestBody Event event) {
+        return eventsService.updateEvent(event);
+    }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void noAutoFound(EventNotFoundException e) {

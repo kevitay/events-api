@@ -35,4 +35,14 @@ public class EventsService {
           throw new EventNotFoundException();
       }
     }
+
+
+    public Event updateEvent(Event updatedEvent) {
+         Optional<Event> oEvent = eventsRepository.findById(updatedEvent.getId());
+        if(oEvent.isPresent()){
+            return eventsRepository.save(updatedEvent);
+        }else{
+            throw new EventNotFoundException();
+        }
+    }
 }

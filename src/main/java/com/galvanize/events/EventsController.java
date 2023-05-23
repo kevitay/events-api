@@ -48,7 +48,17 @@ public class EventsController {
 
     @PatchMapping("/{id}")
     public Event updateEvent(@PathVariable UUID id, @RequestBody UpdateEventRequest update) {
-        return eventsService.updateEvent(id, update.getStatus());
+        if(!(update.getStatus() == null)) {
+            System.out.println(update.getStatus());
+            return eventsService.updateEvent(id, update.getStatus());
+        } else if (!(update.getStartDateTime() == null) && !(update.getEndDateTime() == null)) {
+            return eventsService.updateEvent(id, update.getStartDateTime(), update.getEndDateTime());
+        }  else if (!(update.getStartDateTime() == null)) {
+            return eventsService.updateEventStart(id, update.getStartDateTime());
+        }  else if (!(update.getEndDateTime() == null)) {
+            return eventsService.updateEventEnd(id, update.getEndDateTime());
+        }
+        return new Event(); // todo change to optional?
     }
 
     @ExceptionHandler

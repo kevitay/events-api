@@ -251,4 +251,33 @@ public class EventsControllerTests {
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
+
+    @Test
+    public void updateDateFieldsReturnsEvent() throws Exception {
+        HashMap<String, String> startAddress = new HashMap<>();
+        startAddress.put("name", "Tiki Bar");
+        startAddress.put("address", "555 Elm Street");
+        startAddress.put("city", "Anyplace");
+        startAddress.put("state", "GA");
+        startAddress.put("zipcode", "55555");
+        HashMap<String, String> endAddress = new HashMap<>();
+        endAddress.put("name", "Tavern");
+        endAddress.put("address", "555 Main Street");
+        endAddress.put("city", "Anyplace");
+        endAddress.put("state", "GA");
+        endAddress.put("zipcode", "55555");
+
+        Date startDate= new Date(2001, 01, 01, 06,00, 00);
+        Date endDate= new Date(2001, 01, 02, 10,00, 00);
+        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
+        UUID id = updatedEvent.getId();
+        when(eventsService.updateEvent(any(UUID.class), any(Date.class), any(Date.class))).thenReturn(updatedEvent);
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"startDateTime\": \"3901-02-01@15:00:00\", \"endDateTime\": \"3901-02-02@09:00:00\"}"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id.toString()));
+
+    }
 }

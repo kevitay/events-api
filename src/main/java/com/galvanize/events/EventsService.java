@@ -47,4 +47,18 @@ public class EventsService {
             throw new EventNotFoundException();
         }
     }
+
+    public Event updateEvent(UUID id, String status) {
+        Optional<Event> oEvent = eventsRepository.findById(id);
+        if(oEvent.isPresent()){
+            try {
+                oEvent.get().setStatus(status);
+                return eventsRepository.save(oEvent.get());
+            } catch(IllegalArgumentException e) {
+                throw new InvalidEventUpdateException();
+            }
+        }else{
+            throw new EventNotFoundException();
+        }
+    }
 }

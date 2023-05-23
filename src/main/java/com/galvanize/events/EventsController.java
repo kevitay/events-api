@@ -49,7 +49,6 @@ public class EventsController {
     @PatchMapping("/{id}")
     public Event updateEvent(@PathVariable UUID id, @RequestBody UpdateEventRequest update) {
         if(!(update.getStatus() == null)) {
-            System.out.println(update.getStatus());
             return eventsService.updateEvent(id, update.getStatus());
         } else if (!(update.getStartDateTime() == null) && !(update.getEndDateTime() == null)) {
             return eventsService.updateEvent(id, update.getStartDateTime(), update.getEndDateTime());

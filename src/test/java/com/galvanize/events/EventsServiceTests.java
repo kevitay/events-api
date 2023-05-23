@@ -307,6 +307,33 @@ public class EventsServiceTests {
     }
 
     @Test
+    public void updateEventDatesReturnIDNotExists() {
+        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(Optional.empty());
+        assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
+            eventsService.updateEvent(UUID.randomUUID(), new Date(), new Date());
+        });
+    }
+
+    @Test
+    public void updateEventStartDateReturnIDNotExists() {
+        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(Optional.empty());
+        assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
+            eventsService.updateEventStart(UUID.randomUUID(),new Date());
+        });
+    }
+
+    @Test
+    public void updateEventEndDateReturnIDNotExists() {
+        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+                .thenReturn(Optional.empty());
+        assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
+            eventsService.updateEventEnd(UUID.randomUUID(),new Date());
+        });
+    }
+
+    @Test
     void deleteEvent_byID() {
         HashMap<String, String> startAddress = new HashMap<>();
         startAddress.put("name", "Tiki Bar");

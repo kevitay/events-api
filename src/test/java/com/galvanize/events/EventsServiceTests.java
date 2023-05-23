@@ -411,8 +411,6 @@ public class EventsServiceTests {
         });
     }
 
-
-
     @Test
     void deleteEvent_byID() {
         HashMap<String, String> startAddress = new HashMap<>();
@@ -446,5 +444,4 @@ public class EventsServiceTests {
             eventsService.deleteEvent(UUID.randomUUID());
         });
     }
-
 }

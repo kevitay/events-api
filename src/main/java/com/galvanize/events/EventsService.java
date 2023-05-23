@@ -2,6 +2,7 @@ package com.galvanize.events;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -53,6 +54,49 @@ public class EventsService {
         if(oEvent.isPresent()){
             try {
                 oEvent.get().setStatus(status);
+                return eventsRepository.save(oEvent.get());
+            } catch(IllegalArgumentException e) {
+                throw new InvalidEventUpdateException();
+            }
+        }else{
+            throw new EventNotFoundException();
+        }
+    }
+
+    public Event updateEvent(UUID id, Date startDateTime, Date endDateTime) {
+        Optional<Event> oEvent = eventsRepository.findById(id);
+        if(oEvent.isPresent()){
+            try {
+                oEvent.get().setStartDateTime(startDateTime);
+                oEvent.get().setEndDateTime(endDateTime);
+                return eventsRepository.save(oEvent.get());
+            } catch(IllegalArgumentException e) {
+                throw new InvalidEventUpdateException();
+            }
+        }else{
+            throw new EventNotFoundException();
+        }
+    }
+
+    public Event updateEventStart(UUID id, Date startDateTime) {
+        Optional<Event> oEvent = eventsRepository.findById(id);
+        if(oEvent.isPresent()){
+            try {
+                oEvent.get().setStartDateTime(startDateTime);
+                return eventsRepository.save(oEvent.get());
+            } catch(IllegalArgumentException e) {
+                throw new InvalidEventUpdateException();
+            }
+        }else{
+            throw new EventNotFoundException();
+        }
+    }
+
+    public Event updateEventEnd(UUID id, Date endDateTime) {
+        Optional<Event> oEvent = eventsRepository.findById(id);
+        if(oEvent.isPresent()){
+            try {
+                oEvent.get().setEndDateTime(endDateTime);
                 return eventsRepository.save(oEvent.get());
             } catch(IllegalArgumentException e) {
                 throw new InvalidEventUpdateException();

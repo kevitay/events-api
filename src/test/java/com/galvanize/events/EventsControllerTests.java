@@ -334,6 +334,36 @@ public class EventsControllerTests {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id.toString()));
-
     }
+
+    @Test
+    public void updateDatesUnknownIdThrowsNoContent() throws Exception {
+        doThrow(new EventNotFoundException()).when(eventsService).updateEvent(any(UUID.class), ArgumentMatchers.any(Date.class),ArgumentMatchers.any(Date.class));
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"startDateTime\": \"3901-02-01@15:00:00\", \"endDateTime\": \"3901-02-02@09:00:00\"}"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    public void updateStartDateUnknownIdThrowsNoContent() throws Exception {
+        doThrow(new EventNotFoundException()).when(eventsService).updateEventStart(any(UUID.class), ArgumentMatchers.any(Date.class));
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"startDateTime\": \"3901-02-01@15:00:00\"}"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    public void updateEndDateUnknownIdThrowsNoContent() throws Exception {
+        doThrow(new EventNotFoundException()).when(eventsService).updateEventEnd(any(UUID.class), ArgumentMatchers.any(Date.class));
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"endDateTime\": \"3901-02-02@09:00:00\"}"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
 }

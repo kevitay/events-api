@@ -366,4 +366,33 @@ public class EventsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
+    @Test
+    public void updateDatesThrowsInvalidUpdateException() throws Exception {
+        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEvent(any(UUID.class), ArgumentMatchers.any(Date.class), ArgumentMatchers.any(Date.class));
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"startDateTime\": \"3901-02-01@15:00:00\", \"endDateTime\": \"3901-02-02@09:00:00\"}"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void updateStartDateThrowsInvalidUpdateException() throws Exception {
+        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEventStart(any(UUID.class), ArgumentMatchers.any(Date.class));
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"startDateTime\": \"3901-02-01@15:00:00\"}"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void updateEndDateThrowsInvalidUpdateException() throws Exception {
+        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEventEnd(any(UUID.class), ArgumentMatchers.any(Date.class));
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", UUID.randomUUID().toString()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"endDateTime\": \"3901-02-02@09:00:00\"}"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
 }

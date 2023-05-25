@@ -44,7 +44,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findAll()).thenReturn(Arrays.asList(event));
         EventList eventsList = eventsService.getEvents();
         assertThat(eventsList).isNotNull();
@@ -67,7 +67,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
 
@@ -102,7 +102,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.save(ArgumentMatchers.any(Event.class)))
                 .thenReturn(newEvent);
         Event event = eventsService.addEvent(newEvent);
@@ -138,7 +138,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
@@ -172,7 +172,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
@@ -209,7 +209,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any()))
@@ -235,7 +235,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
@@ -265,7 +265,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
@@ -293,7 +293,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
@@ -348,7 +348,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any()))
@@ -374,7 +374,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any()))
@@ -400,7 +400,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any()))
@@ -426,7 +426,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findById(anyLong()))
                .thenReturn(java.util.Optional.of(event));
 

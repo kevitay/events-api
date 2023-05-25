@@ -60,7 +60,7 @@ public class EventsControllerTests {
 
         Date startDate = new Date(2001, 01, 01, 10, 00, 00);
         Date endDate = new Date(2001, 01, 02, 04, 00, 00);
-        Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+        Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsService.getEventById(anyLong())).thenReturn(existingEvent);
         Long id = existingEvent.getId();
         System.out.println(id);
@@ -108,7 +108,7 @@ public class EventsControllerTests {
 
         Date startDate = new Date(2001, 01, 01, 10, 00, 00);
         Date endDate = new Date(2001, 01, 02, 04, 00, 00);
-        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsService.addEvent(any(Event.class))).thenReturn(newEvent);
         mockMvc.perform(post("/api/event")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -163,7 +163,7 @@ public class EventsControllerTests {
 
         Date startDate = new Date(2001, 01, 01, 10, 00, 00);
         Date endDate = new Date(2001, 01, 02, 04, 00, 00);
-        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsService.addEvent(any(Event.class))).thenReturn(newEvent);
         mockMvc.perform(post("/api/event")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -220,7 +220,7 @@ public class EventsControllerTests {
 
         Date startDate = new Date(2001, 01, 01, 10, 00, 00);
         Date endDate = new Date(2001, 01, 02, 04, 00, 00);
-        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
+        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "upcoming", false);
 
         Long id = updatedEvent.getId();
 
@@ -271,7 +271,7 @@ public class EventsControllerTests {
 
         Date startDate = new Date(2001, 01, 01, 06, 00, 00);
         Date endDate = new Date(2001, 01, 02, 10, 00, 00);
-        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
+        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "upcoming", false);
         Long id = updatedEvent.getId();
         when(eventsService.updateEvent(anyLong(), any(Date.class), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
@@ -299,7 +299,7 @@ public class EventsControllerTests {
 
         Date startDate = new Date(2001, 01, 01, 06, 00, 00);
         Date endDate = new Date(2001, 01, 02, 10, 00, 00);
-        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
+        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "upcoming", false);
         Long id = updatedEvent.getId();
         when(eventsService.updateEventStart(anyLong(), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
@@ -327,7 +327,7 @@ public class EventsControllerTests {
 
         Date startDate= new Date(2001, 01, 01, 06,00, 00);
         Date endDate= new Date(2001, 01, 02, 10,00, 00);
-        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
+        Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "upcoming", false);
         Long id = updatedEvent.getId();
         when(eventsService.updateEventEnd(anyLong(), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")

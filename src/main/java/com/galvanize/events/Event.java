@@ -27,17 +27,14 @@ public class Event {
     private HashMap<String, String> startLocation;
 
     private HashMap<String, String> endLocation;
-    private String participantListId; //todo get data type
     private Double baseCost;
-    private Double totalCost;//todo evaluate if this should be in event
     private String status; //todo change to enum
     private Boolean isPublic;
-    //todo should we store an itinerary ID
 
     public Event() {
     }
 
-    public Event(String creatorID, String organization, String name, String type, String description, Date startDateTime, Date endDateTime, HashMap<String, String> startLocation, HashMap<String, String> endLocation, String participantListId, Double baseCost, Double totalCost, String status, Boolean isPublic) {
+    public Event(String creatorID, String organization, String name, String type, String description, Date startDateTime, Date endDateTime, HashMap<String, String> startLocation, HashMap<String, String> endLocation, Double baseCost, String status, Boolean isPublic) {
         this.creatorID = creatorID;
         this.organization = organization;
         this.name = name;
@@ -47,9 +44,7 @@ public class Event {
         this.endDateTime = endDateTime;
         this.startLocation = startLocation;
         this.endLocation = endLocation;
-        this.participantListId = participantListId;
         this.baseCost = baseCost;
-        this.totalCost = totalCost;
         this.status = status;
         this.isPublic = isPublic;
     }
@@ -130,28 +125,12 @@ public class Event {
         this.endLocation = endLocation;
     }
 
-    public String getParticipantListId() {
-        return participantListId;
-    }
-
-    public void setParticipantListId(String participantListId) {
-        this.participantListId = participantListId;
-    }
-
     public Double getBaseCost() {
         return baseCost;
     }
 
     public void setBaseCost(Double baseCost) {
         this.baseCost = baseCost;
-    }
-
-    public Double getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(Double totalCost) {
-        this.totalCost = totalCost;
     }
 
     public String getStatus() {

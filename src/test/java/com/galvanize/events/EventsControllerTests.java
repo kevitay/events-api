@@ -63,11 +63,13 @@ public class EventsControllerTests {
         Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
         when(eventsService.getEventById(anyLong())).thenReturn(existingEvent);
         Long id = existingEvent.getId();
+        System.out.println(id);
+
 
         mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/10")))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()))
+                .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.organization").value("Phils Buds"))
                 .andExpect(jsonPath("$.name").value("St. Patricks Bar Crawl"))
                 .andExpect(jsonPath("$.description").value("21st Birthday Pub Crawl"));
@@ -172,7 +174,7 @@ public class EventsControllerTests {
         newEvent.setName("Different Name");
         newEvent.setDescription("New Birthday Bash");
         when(eventsService.updateEvent(any(Event.class))).thenReturn(newEvent);
-        mockMvc.perform(MockMvcRequestBuilders.put(String.format("/api/event/%s", id))
+        mockMvc.perform(MockMvcRequestBuilders.put(String.format("/api/event/10"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(newEvent)))
                 .andExpect(status().isOk())
@@ -223,12 +225,12 @@ public class EventsControllerTests {
         Long id = updatedEvent.getId();
 
         when(eventsService.updateEvent(anyLong(), ArgumentMatchers.anyString())).thenReturn(updatedEvent);
-        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
+        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/10"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\": \"upcoming\"}"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()))
+                .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.status").value("upcoming"));
     }
 
@@ -272,12 +274,12 @@ public class EventsControllerTests {
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
         Long id = updatedEvent.getId();
         when(eventsService.updateEvent(anyLong(), any(Date.class), any(Date.class))).thenReturn(updatedEvent);
-        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"startDateTime\": \"3901-02-01@15:00:00\", \"endDateTime\": \"3901-02-02@09:00:00\"}"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()));
+                .andExpect(jsonPath("$.id").value(id));
     }
 
     @Test
@@ -300,12 +302,12 @@ public class EventsControllerTests {
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
         Long id = updatedEvent.getId();
         when(eventsService.updateEventStart(anyLong(), any(Date.class))).thenReturn(updatedEvent);
-        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"startDateTime\": \"3901-02-01@15:00:00\"}"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()));
+                .andExpect(jsonPath("$.id").value(id));
     }
 
     @Test
@@ -328,12 +330,12 @@ public class EventsControllerTests {
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
         Long id = updatedEvent.getId();
         when(eventsService.updateEventEnd(anyLong(), any(Date.class))).thenReturn(updatedEvent);
-        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"endDateTime\": \"3901-02-02@09:00:00\"}"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id.toString()));
+                .andExpect(jsonPath("$.id").value(id));
     }
 
     @Test

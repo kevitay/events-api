@@ -11,7 +11,7 @@ import java.util.UUID;
 public class Event {
 
     @Id
-    private final UUID id = UUID.randomUUID();
+    private final Long id;
     private String creatorID; //todo finalize format
     private String organization;
     @Column(name = "event_name")

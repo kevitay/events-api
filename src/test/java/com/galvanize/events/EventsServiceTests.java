@@ -241,7 +241,7 @@ public class EventsServiceTests {
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
         Date newStartDate= new Date(2001, 01, 01, 6,00, 00);
         Date newEndDate= new Date(2001, 01, 02, 10,00, 00);
-        UUID id = event.getId();
+        Long id = event.getId();
         Event updatedEvent = eventsService.updateEvent(id, newStartDate, newEndDate);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());

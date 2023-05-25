@@ -178,7 +178,7 @@ public class EventsServiceTests {
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
 
         Long id = event.getId();
-        Event updatedEvent = eventsService.updateEvent(id, "upcoming");
+        Event updatedEvent = eventsService.updateEvent(10L, "upcoming");
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
         assertThat(updatedEvent.getStatus()).isEqualTo(event.getStatus());
@@ -271,7 +271,7 @@ public class EventsServiceTests {
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
         Date newStartDate= new Date(2001, 01, 01, 6,00, 00);
         Long id = event.getId();
-        Event updatedEvent = eventsService.updateEventStart(id, newStartDate);
+        Event updatedEvent = eventsService.updateEventStart(10L, newStartDate);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
         assertThat(updatedEvent.getStartDateTime()).isEqualTo(event.getStartDateTime());
@@ -299,7 +299,7 @@ public class EventsServiceTests {
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
         Date newEndDate= new Date(2001, 01, 02, 10,00, 00);
         Long id = event.getId();
-        Event updatedEvent = eventsService.updateEventEnd(id, newEndDate);
+        Event updatedEvent = eventsService.updateEventEnd(10L, newEndDate);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
         assertThat(updatedEvent.getEndDateTime()).isEqualTo(event.getEndDateTime());
@@ -430,7 +430,7 @@ public class EventsServiceTests {
         when(eventsRepository.findById(anyLong()))
                .thenReturn(java.util.Optional.of(event));
 
-        eventsService.deleteEvent(event.getId());
+        eventsService.deleteEvent(10L);
 
         verify(eventsRepository).delete(ArgumentMatchers.any(Event.class));
     }

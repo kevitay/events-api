@@ -66,7 +66,7 @@ public class EventsControllerTests {
         System.out.println(id);
 
 
-        mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/10")))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/event/10"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
@@ -169,8 +169,7 @@ public class EventsControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(newEvent)))
                 .andExpect(status().isCreated());
-        Long id = newEvent.getId();
-        newEvent.setOrganization("Bud's Buds");
+         newEvent.setOrganization("Bud's Buds");
         newEvent.setName("Different Name");
         newEvent.setDescription("New Birthday Bash");
         when(eventsService.updateEvent(anyLong(), any(Event.class))).thenReturn(newEvent);
@@ -225,7 +224,7 @@ public class EventsControllerTests {
         Long id = updatedEvent.getId();
 
         when(eventsService.updateEvent(anyLong(), ArgumentMatchers.anyString())).thenReturn(updatedEvent);
-        mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/10"))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\": \"upcoming\"}"))
                 .andDo(print())

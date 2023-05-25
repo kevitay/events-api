@@ -62,9 +62,9 @@ public class EventsControllerTests {
         Date endDate = new Date(2001, 01, 02, 04, 00, 00);
         Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
         when(eventsService.getEventById(anyInt())).thenReturn(existingEvent);
-        UUID id = existingEvent.getId();
+        Long id = existingEvent.getId();
 
-        mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/%s", id)))
+        mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/10")))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.id").value(id.toString()))
@@ -76,7 +76,7 @@ public class EventsControllerTests {
     @Test
     public void getEventByIdReturnsNoContent() throws Exception {
         doThrow(new EventNotFoundException()).when(eventsService).getEventById(ArgumentMatchers.anyInt());
-        mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/%s", UUID.randomUUID())))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/event/10"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
@@ -167,7 +167,7 @@ public class EventsControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(newEvent)))
                 .andExpect(status().isCreated());
-        UUID id = newEvent.getId();
+        Long id = newEvent.getId();
         newEvent.setOrganization("Bud's Buds");
         newEvent.setName("Different Name");
         newEvent.setDescription("New Birthday Bash");
@@ -220,7 +220,7 @@ public class EventsControllerTests {
         Date endDate = new Date(2001, 01, 02, 04, 00, 00);
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
 
-        UUID id = updatedEvent.getId();
+        Long id = updatedEvent.getId();
 
         when(eventsService.updateEvent(anyInt(), ArgumentMatchers.anyString())).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
@@ -270,7 +270,7 @@ public class EventsControllerTests {
         Date startDate = new Date(2001, 01, 01, 06, 00, 00);
         Date endDate = new Date(2001, 01, 02, 10, 00, 00);
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
-        UUID id = updatedEvent.getId();
+        Long id = updatedEvent.getId();
         when(eventsService.updateEvent(anyInt(), any(Date.class), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -298,7 +298,7 @@ public class EventsControllerTests {
         Date startDate = new Date(2001, 01, 01, 06, 00, 00);
         Date endDate = new Date(2001, 01, 02, 10, 00, 00);
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
-        UUID id = updatedEvent.getId();
+        Long id = updatedEvent.getId();
         when(eventsService.updateEventStart(anyInt(), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -326,7 +326,7 @@ public class EventsControllerTests {
         Date startDate= new Date(2001, 01, 01, 06,00, 00);
         Date endDate= new Date(2001, 01, 02, 10,00, 00);
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
-        UUID id = updatedEvent.getId();
+        Long id = updatedEvent.getId();
         when(eventsService.updateEventEnd(anyInt(), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
                         .contentType(MediaType.APPLICATION_JSON)

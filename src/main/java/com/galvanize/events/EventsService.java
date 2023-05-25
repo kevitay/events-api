@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 public class EventsService {
@@ -19,7 +19,7 @@ public class EventsService {
         return new EventList(eventsRepository.findAll());
     }
 
-    public Event getEventById(UUID id) {
+    public Event getEventById(Long id) {
         return eventsRepository.findById(id).orElseThrow(EventNotFoundException::new);
     }
 
@@ -31,7 +31,7 @@ public class EventsService {
         }
     }
 
-    public void deleteEvent(UUID id) {
+    public void deleteEvent(Long id) {
       Optional<Event> oEvent = eventsRepository.findById(id);
       if(oEvent.isPresent()){
           eventsRepository.delete(oEvent.get());
@@ -40,8 +40,8 @@ public class EventsService {
       }
     }
 
-    public Event updateEvent(Event updatedEvent) {
-         Optional<Event> oEvent = eventsRepository.findById(updatedEvent.getId());
+    public Event updateEvent(Long id, Event updatedEvent) {
+         Optional<Event> oEvent = eventsRepository.findById(id);
         if(oEvent.isPresent()){
             return eventsRepository.save(updatedEvent);
         }else{
@@ -49,7 +49,7 @@ public class EventsService {
         }
     }
 
-    public Event updateEvent(UUID id, String status) {
+    public Event updateEvent(Long id, String status) {
         Optional<Event> oEvent = eventsRepository.findById(id);
         if(oEvent.isPresent()){
             try {
@@ -63,7 +63,7 @@ public class EventsService {
         }
     }
 
-    public Event updateEvent(UUID id, Date startDateTime, Date endDateTime) {
+    public Event updateEvent(Long id, Date startDateTime, Date endDateTime) {
         Optional<Event> oEvent = eventsRepository.findById(id);
         if(oEvent.isPresent()){
             try {
@@ -78,7 +78,7 @@ public class EventsService {
         }
     }
 
-    public Event updateEventStart(UUID id, Date startDateTime) {
+    public Event updateEventStart(Long id, Date startDateTime) {
         Optional<Event> oEvent = eventsRepository.findById(id);
         if(oEvent.isPresent()){
             try {
@@ -92,7 +92,7 @@ public class EventsService {
         }
     }
 
-    public Event updateEventEnd(UUID id, Date endDateTime) {
+    public Event updateEventEnd(Long id, Date endDateTime) {
         Optional<Event> oEvent = eventsRepository.findById(id);
         if(oEvent.isPresent()){
             try {

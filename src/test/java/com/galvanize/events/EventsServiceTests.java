@@ -11,8 +11,7 @@ import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -45,7 +44,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.findAll()).thenReturn(Arrays.asList(event));
         EventList eventsList = eventsService.getEvents();
         assertThat(eventsList).isNotNull();
@@ -68,11 +67,11 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
 
-        Event foundEvent = eventsService.getEventById(UUID.randomUUID());
+        Event foundEvent = eventsService.getEventById(anyLong());
         assertThat(foundEvent).isNotNull();
         assertThat(foundEvent.getId()).isEqualTo(event.getId());
         //todo add other values if desired
@@ -80,10 +79,10 @@ public class EventsServiceTests {
 
     @Test
     public void getEventByIdNoContent() {
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.getEventById(UUID.randomUUID());
+            eventsService.getEventById(anyLong());
         });
     }
 
@@ -103,7 +102,7 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
+        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsRepository.save(ArgumentMatchers.any(Event.class)))
                 .thenReturn(newEvent);
         Event event = eventsService.addEvent(newEvent);
@@ -139,21 +138,21 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
-        Event updatedEvent = eventsService.updateEvent(event);
+        Event updatedEvent = eventsService.updateEvent(10L, event);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
     }
 
     @Test
     public void updateEventByIDNotExists() {
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.updateEvent(new Event());
+            eventsService.updateEvent(10L, new Event());
         });
     }
 
@@ -173,13 +172,13 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
 
-        UUID id = event.getId();
-        Event updatedEvent = eventsService.updateEvent(id, "upcoming");
+        Long id = event.getId();
+        Event updatedEvent = eventsService.updateEvent(10L, "upcoming");
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
         assertThat(updatedEvent.getStatus()).isEqualTo(event.getStatus());
@@ -187,10 +186,10 @@ public class EventsServiceTests {
 
     @Test
     public void updateEventStatusReturnIDNotExists() {
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+        when(eventsRepository.findById((anyLong())))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.updateEvent(UUID.randomUUID(),"badID");
+            eventsService.updateEvent(anyLong(),"badID");
         });
     }
 
@@ -210,13 +209,13 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any()))
                 .thenThrow(IllegalArgumentException.class);
         assertThatExceptionOfType(InvalidEventUpdateException.class).isThrownBy(() ->{
-            eventsService.updateEvent(UUID.randomUUID(),"badID");
+            eventsService.updateEvent(anyLong(),"badID");
         });
     }
 
@@ -236,14 +235,14 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
         Date newStartDate= new Date(2001, 01, 01, 6,00, 00);
         Date newEndDate= new Date(2001, 01, 02, 10,00, 00);
-        UUID id = event.getId();
-        Event updatedEvent = eventsService.updateEvent(id, newStartDate, newEndDate);
+        Long id = event.getId();
+        Event updatedEvent = eventsService.updateEvent(10L, newStartDate, newEndDate);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
         assertThat(updatedEvent.getStartDateTime()).isEqualTo(event.getStartDateTime());
@@ -266,13 +265,13 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
         Date newStartDate= new Date(2001, 01, 01, 6,00, 00);
-        UUID id = event.getId();
-        Event updatedEvent = eventsService.updateEventStart(id, newStartDate);
+        Long id = event.getId();
+        Event updatedEvent = eventsService.updateEventStart(10L, newStartDate);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
         assertThat(updatedEvent.getStartDateTime()).isEqualTo(event.getStartDateTime());
@@ -294,13 +293,13 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
         Date newEndDate= new Date(2001, 01, 02, 10,00, 00);
-        UUID id = event.getId();
-        Event updatedEvent = eventsService.updateEventEnd(id, newEndDate);
+        Long id = event.getId();
+        Event updatedEvent = eventsService.updateEventEnd(10L, newEndDate);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
         assertThat(updatedEvent.getEndDateTime()).isEqualTo(event.getEndDateTime());
@@ -308,28 +307,28 @@ public class EventsServiceTests {
 
     @Test
     public void updateEventDatesReturnIDNotExists() {
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.updateEvent(UUID.randomUUID(), new Date(), new Date());
+            eventsService.updateEvent( anyLong(), new Date(), new Date());
         });
     }
 
     @Test
     public void updateEventStartDateReturnIDNotExists() {
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.updateEventStart(UUID.randomUUID(),new Date());
+            eventsService.updateEventStart(anyLong(),new Date());
         });
     }
 
     @Test
     public void updateEventEndDateReturnIDNotExists() {
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.updateEventEnd(UUID.randomUUID(),new Date());
+            eventsService.updateEventEnd(anyLong(),new Date());
         });
     }
 
@@ -349,13 +348,13 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any()))
                 .thenThrow(IllegalArgumentException.class);
         assertThatExceptionOfType(InvalidEventUpdateException.class).isThrownBy(() ->{
-            eventsService.updateEvent(UUID.randomUUID(), new Date(), new Date());
+            eventsService.updateEvent(anyLong(), new Date(), new Date());
         });
     }
 
@@ -375,13 +374,13 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any()))
                 .thenThrow(IllegalArgumentException.class);
         assertThatExceptionOfType(InvalidEventUpdateException.class).isThrownBy(() ->{
-            eventsService.updateEventStart(UUID.randomUUID(), new Date());
+            eventsService.updateEventStart(anyLong(), new Date());
         });
     }
 
@@ -401,13 +400,13 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any()))
                 .thenThrow(IllegalArgumentException.class);
         assertThatExceptionOfType(InvalidEventUpdateException.class).isThrownBy(() ->{
-            eventsService.updateEventEnd(UUID.randomUUID(), new Date());
+            eventsService.updateEventEnd(anyLong(), new Date());
         });
     }
 
@@ -427,21 +426,21 @@ public class EventsServiceTests {
         endAddress.put("zipcode", "55555");
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
-        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+         Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
+        when(eventsRepository.findById(anyLong()))
                .thenReturn(java.util.Optional.of(event));
 
-        eventsService.deleteEvent(event.getId());
+        eventsService.deleteEvent(10L);
 
         verify(eventsRepository).delete(ArgumentMatchers.any(Event.class));
     }
 
     @Test
     public void deleteEventByIDNotExists() {
-        when(eventsRepository.findById(ArgumentMatchers.any(UUID.class)))
+        when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.deleteEvent(UUID.randomUUID());
+            eventsService.deleteEvent(anyLong());
         });
     }
 }

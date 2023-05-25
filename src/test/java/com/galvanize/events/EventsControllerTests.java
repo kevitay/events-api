@@ -173,8 +173,8 @@ public class EventsControllerTests {
         newEvent.setOrganization("Bud's Buds");
         newEvent.setName("Different Name");
         newEvent.setDescription("New Birthday Bash");
-        when(eventsService.updateEvent(any(Event.class))).thenReturn(newEvent);
-        mockMvc.perform(MockMvcRequestBuilders.put(String.format("/api/event/10"))
+        when(eventsService.updateEvent(anyLong(), any(Event.class))).thenReturn(newEvent);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(newEvent)))
                 .andExpect(status().isOk())
@@ -185,7 +185,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateThrowsBadRequest() throws Exception {
-        doThrow(new InvalidEventException()).when(eventsService).updateEvent(ArgumentMatchers.any(Event.class));
+        doThrow(new InvalidEventException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.any(Event.class));
         mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(new Event())))
@@ -195,7 +195,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateUnknownIdThrowsNoContent() throws Exception {
-        doThrow(new EventNotFoundException()).when(eventsService).updateEvent(ArgumentMatchers.any(Event.class));
+        doThrow(new EventNotFoundException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.any(Event.class));
         mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(new Event())))

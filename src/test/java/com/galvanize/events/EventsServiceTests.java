@@ -142,7 +142,7 @@ public class EventsServiceTests {
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(java.util.Optional.of(event));
         when(eventsRepository.save(ArgumentMatchers.any(Event.class))).thenReturn(event);
-        Event updatedEvent = eventsService.updateEvent(event);
+        Event updatedEvent = eventsService.updateEvent(10L, event);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
     }
@@ -152,7 +152,7 @@ public class EventsServiceTests {
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.updateEvent(new Event());
+            eventsService.updateEvent(10L, new Event());
         });
     }
 
@@ -242,7 +242,7 @@ public class EventsServiceTests {
         Date newStartDate= new Date(2001, 01, 01, 6,00, 00);
         Date newEndDate= new Date(2001, 01, 02, 10,00, 00);
         Long id = event.getId();
-        Event updatedEvent = eventsService.updateEvent(id, newStartDate, newEndDate);
+        Event updatedEvent = eventsService.updateEvent(10L, newStartDate, newEndDate);
         assertThat(event).isNotNull();
         assertThat(updatedEvent.getId()).isEqualTo(event.getId());
         assertThat(updatedEvent.getStartDateTime()).isEqualTo(event.getStartDateTime());

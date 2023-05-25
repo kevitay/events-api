@@ -43,7 +43,7 @@ public class EventsController {
 
     @PutMapping("/{id}")
     public Event updateEvent(@PathVariable Long id, @RequestBody Event event) {
-        return eventsService.updateEvent(event);
+        return eventsService.updateEvent(id, event);
     }
 
     @PatchMapping("/{id}")

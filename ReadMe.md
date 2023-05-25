@@ -26,7 +26,7 @@ Event API supports Post new Event
 sample request body:
 ```
 {
-    "creatorId": "aabbcc1234",
+    "creatorID": "aabbcc1234",
     "organization": "Phils Buds",
     "name": "St. Patricks Bar Crawl '01",
     "type": "Social",
@@ -69,7 +69,7 @@ sample request body:
 ```
 {
     "id": 2,
-    "creatorId": "phil",
+    "creatorID": "phil",
     "organization": "Phils Buds",
     "name": "St. Patricks Bar Crawl '01",
     "type": "Social",

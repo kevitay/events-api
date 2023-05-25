@@ -10,8 +10,8 @@ import java.util.HashMap;
 @Table(name = "events")
 public class Event {
 
-    @Id
-    private final Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String creatorID; //todo finalize format
     private String organization;
     @Column(name = "event_name")

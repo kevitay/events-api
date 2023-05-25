@@ -63,10 +63,7 @@ public class EventsControllerTests {
         Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, 50.01, "planned", false);
         when(eventsService.getEventById(anyLong())).thenReturn(existingEvent);
         Long id = existingEvent.getId();
-        System.out.println(id);
-
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/event/10"))
+               mockMvc.perform(MockMvcRequestBuilders.get("/api/event/10"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.id").value(id))

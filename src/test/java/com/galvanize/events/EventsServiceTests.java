@@ -71,7 +71,7 @@ public class EventsServiceTests {
         when(eventsRepository.findById(anyInt()))
                 .thenReturn(java.util.Optional.of(event));
 
-        Event foundEvent = eventsService.getEventById(UUID.randomUUID());
+        Event foundEvent = eventsService.getEventById(anyInt());
         assertThat(foundEvent).isNotNull();
         assertThat(foundEvent.getId()).isEqualTo(event.getId());
         //todo add other values if desired
@@ -82,7 +82,7 @@ public class EventsServiceTests {
         when(eventsRepository.findById(anyInt()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.getEventById(UUID.randomUUID());
+            eventsService.getEventById(anyInt());
         });
     }
 
@@ -189,7 +189,7 @@ public class EventsServiceTests {
         when(eventsRepository.findById(anyInt()))
                 .thenReturn(Optional.empty());
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
-            eventsService.updateEvent(UUID.randomUUID(),"badID");
+            eventsService.updateEvent(anyInt(),"badID");
         });
     }
 
@@ -215,7 +215,7 @@ public class EventsServiceTests {
         when(eventsRepository.save(ArgumentMatchers.any()))
                 .thenThrow(IllegalArgumentException.class);
         assertThatExceptionOfType(InvalidEventUpdateException.class).isThrownBy(() ->{
-            eventsService.updateEvent(UUID.randomUUID(),"badID");
+            eventsService.updateEvent(anyInt(),"badID");
         });
     }
 

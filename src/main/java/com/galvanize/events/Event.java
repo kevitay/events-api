@@ -53,7 +53,7 @@ public class Event {
         this.isPublic = isPublic;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

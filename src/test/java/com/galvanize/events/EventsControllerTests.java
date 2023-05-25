@@ -61,7 +61,7 @@ public class EventsControllerTests {
         Date startDate = new Date(2001, 01, 01, 10, 00, 00);
         Date endDate = new Date(2001, 01, 02, 04, 00, 00);
         Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "planned", false);
-        when(eventsService.getEventById(anyInt())).thenReturn(existingEvent);
+        when(eventsService.getEventById(anyLong())).thenReturn(existingEvent);
         Long id = existingEvent.getId();
 
         mockMvc.perform(MockMvcRequestBuilders.get(String.format("/api/event/10")))
@@ -75,7 +75,7 @@ public class EventsControllerTests {
 
     @Test
     public void getEventByIdReturnsNoContent() throws Exception {
-        doThrow(new EventNotFoundException()).when(eventsService).getEventById(ArgumentMatchers.anyInt());
+        doThrow(new EventNotFoundException()).when(eventsService).getEventById(ArgumentMatchers.anyLong());
         mockMvc.perform(MockMvcRequestBuilders.get("/api/event/10"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
@@ -133,12 +133,12 @@ public class EventsControllerTests {
     public void deleteEvent() throws Exception {
         mockMvc.perform(delete("/api/event/10"))
                 .andExpect(status().isAccepted());
-        verify(eventsService).deleteEvent(ArgumentMatchers.anyInt());
+        verify(eventsService).deleteEvent(ArgumentMatchers.anyLong());
     }
 
     @Test
     public void deleteUnknownIdThrowsNoContent() throws Exception {
-        doThrow(new EventNotFoundException()).when(eventsService).deleteEvent(ArgumentMatchers.anyInt());
+        doThrow(new EventNotFoundException()).when(eventsService).deleteEvent(ArgumentMatchers.anyLong());
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/event/10"))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
@@ -222,7 +222,7 @@ public class EventsControllerTests {
 
         Long id = updatedEvent.getId();
 
-        when(eventsService.updateEvent(anyInt(), ArgumentMatchers.anyString())).thenReturn(updatedEvent);
+        when(eventsService.updateEvent(anyLong(), ArgumentMatchers.anyString())).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\": \"upcoming\"}"))
@@ -234,7 +234,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateStatusUnknownIdThrowsNoContent() throws Exception {
-        doThrow(new EventNotFoundException()).when(eventsService).updateEvent(anyInt(), ArgumentMatchers.anyString());
+        doThrow(new EventNotFoundException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.anyString());
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\": \"upcoming\"}"))
@@ -244,7 +244,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateStatusThrowsInvalidUpdateException() throws Exception {
-        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEvent(anyInt(), ArgumentMatchers.anyString());
+        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.anyString());
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\": \"upcoming\"}"))
@@ -271,7 +271,7 @@ public class EventsControllerTests {
         Date endDate = new Date(2001, 01, 02, 10, 00, 00);
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
         Long id = updatedEvent.getId();
-        when(eventsService.updateEvent(anyInt(), any(Date.class), any(Date.class))).thenReturn(updatedEvent);
+        when(eventsService.updateEvent(anyLong(), any(Date.class), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"startDateTime\": \"3901-02-01@15:00:00\", \"endDateTime\": \"3901-02-02@09:00:00\"}"))
@@ -299,7 +299,7 @@ public class EventsControllerTests {
         Date endDate = new Date(2001, 01, 02, 10, 00, 00);
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
         Long id = updatedEvent.getId();
-        when(eventsService.updateEventStart(anyInt(), any(Date.class))).thenReturn(updatedEvent);
+        when(eventsService.updateEventStart(anyLong(), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"startDateTime\": \"3901-02-01@15:00:00\"}"))
@@ -327,7 +327,7 @@ public class EventsControllerTests {
         Date endDate= new Date(2001, 01, 02, 10,00, 00);
         Event updatedEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", startDate, endDate, startAddress, endAddress, "asdkfadsf", 50.01, 150.01, "upcoming", false);
         Long id = updatedEvent.getId();
-        when(eventsService.updateEventEnd(anyInt(), any(Date.class))).thenReturn(updatedEvent);
+        when(eventsService.updateEventEnd(anyLong(), any(Date.class))).thenReturn(updatedEvent);
         mockMvc.perform(MockMvcRequestBuilders.patch(String.format("/api/event/%s", id))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"endDateTime\": \"3901-02-02@09:00:00\"}"))
@@ -338,7 +338,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateDatesUnknownIdThrowsNoContent() throws Exception {
-        doThrow(new EventNotFoundException()).when(eventsService).updateEvent(anyInt(), ArgumentMatchers.any(Date.class),ArgumentMatchers.any(Date.class));
+        doThrow(new EventNotFoundException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.any(Date.class),ArgumentMatchers.any(Date.class));
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"startDateTime\": \"3901-02-01@15:00:00\", \"endDateTime\": \"3901-02-02@09:00:00\"}"))
@@ -348,7 +348,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateStartDateUnknownIdThrowsNoContent() throws Exception {
-        doThrow(new EventNotFoundException()).when(eventsService).updateEventStart(anyInt(), ArgumentMatchers.any(Date.class));
+        doThrow(new EventNotFoundException()).when(eventsService).updateEventStart(anyLong(), ArgumentMatchers.any(Date.class));
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"startDateTime\": \"3901-02-01@15:00:00\"}"))
@@ -358,7 +358,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateEndDateUnknownIdThrowsNoContent() throws Exception {
-        doThrow(new EventNotFoundException()).when(eventsService).updateEventEnd(anyInt(), ArgumentMatchers.any(Date.class));
+        doThrow(new EventNotFoundException()).when(eventsService).updateEventEnd(anyLong(), ArgumentMatchers.any(Date.class));
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"endDateTime\": \"3901-02-02@09:00:00\"}"))
@@ -368,7 +368,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateDatesThrowsInvalidUpdateException() throws Exception {
-        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEvent(anyInt(), ArgumentMatchers.any(Date.class), ArgumentMatchers.any(Date.class));
+        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.any(Date.class), ArgumentMatchers.any(Date.class));
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"startDateTime\": \"3901-02-01@15:00:00\", \"endDateTime\": \"3901-02-02@09:00:00\"}"))
@@ -378,7 +378,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateStartDateThrowsInvalidUpdateException() throws Exception {
-        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEventStart(anyInt(), ArgumentMatchers.any(Date.class));
+        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEventStart(anyLong(), ArgumentMatchers.any(Date.class));
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"startDateTime\": \"3901-02-01@15:00:00\"}"))
@@ -388,7 +388,7 @@ public class EventsControllerTests {
 
     @Test
     public void updateEndDateThrowsInvalidUpdateException() throws Exception {
-        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEventEnd(anyInt(), ArgumentMatchers.any(Date.class));
+        doThrow(new InvalidEventUpdateException()).when(eventsService).updateEventEnd(anyLong(), ArgumentMatchers.any(Date.class));
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"endDateTime\": \"3901-02-02@09:00:00\"}"))

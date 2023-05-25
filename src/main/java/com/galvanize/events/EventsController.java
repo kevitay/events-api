@@ -25,7 +25,7 @@ public class EventsController {
     }
 
     @GetMapping("/{id}")
-    public Event getEventById(@PathVariable UUID id) {
+    public Event getEventById(@PathVariable Long id) {
         return eventsService.getEventById(id);
     }
 
@@ -37,17 +37,17 @@ public class EventsController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteEvent(@PathVariable UUID id) {
+    public void deleteEvent(@PathVariable Long id) {
          eventsService.deleteEvent(id);
     }
 
     @PutMapping("/{id}")
-    public Event updateEvent(@PathVariable UUID id, @RequestBody Event event) {
+    public Event updateEvent(@PathVariable Long id, @RequestBody Event event) {
         return eventsService.updateEvent(event);
     }
 
     @PatchMapping("/{id}")
-    public Event updateEvent(@PathVariable UUID id, @RequestBody UpdateEventRequest update) {
+    public Event updateEvent(@PathVariable Long id, @RequestBody UpdateEventRequest update) {
         if(!(update.getStatus() == null)) {
             return eventsService.updateEvent(id, update.getStatus());
         } else if (!(update.getStartDateTime() == null) && !(update.getEndDateTime() == null)) {

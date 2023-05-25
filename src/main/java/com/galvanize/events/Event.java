@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "events")

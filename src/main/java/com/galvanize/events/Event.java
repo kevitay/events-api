@@ -19,14 +19,6 @@ public class Event {
     private String name;
     private String type;
     private String description;
-    @JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
-    private Date startDateTime;
-    @JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss")
-    private Date endDateTime;
-
-    private HashMap<String, String> startLocation;
-
-    private HashMap<String, String> endLocation;
     private Double baseCost;
     private String status; //todo change to enum
     private Boolean isPublic;
@@ -34,16 +26,12 @@ public class Event {
     public Event() {
     }
 
-    public Event(String creatorID, String organization, String name, String type, String description, Date startDateTime, Date endDateTime, HashMap<String, String> startLocation, HashMap<String, String> endLocation, Double baseCost, String status, Boolean isPublic) {
+    public Event(String creatorID, String organization, String name, String type, String description, Double baseCost, String status, Boolean isPublic) {
         this.creatorID = creatorID;
         this.organization = organization;
         this.name = name;
         this.type = type;
         this.description = description;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.startLocation = startLocation;
-        this.endLocation = endLocation;
         this.baseCost = baseCost;
         this.status = status;
         this.isPublic = isPublic;
@@ -91,38 +79,6 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getStartDateTime() {
-        return startDateTime;
-    }
-
-    public void setStartDateTime(Date startDateTime) {
-        this.startDateTime = startDateTime;
-    }
-
-    public Date getEndDateTime() {
-        return endDateTime;
-    }
-
-    public void setEndDateTime(Date endDateTime) {
-        this.endDateTime = endDateTime;
-    }
-
-    public HashMap<String, String> getStartLocation() {
-        return startLocation;
-    }
-
-    public void setStartLocation(HashMap<String, String> startLocation) {
-        this.startLocation = startLocation;
-    }
-
-    public HashMap<String, String> getEndLocation() {
-        return endLocation;
-    }
-
-    public void setEndLocation(HashMap<String, String> endLocation) {
-        this.endLocation = endLocation;
     }
 
     public Double getBaseCost() {

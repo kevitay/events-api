@@ -31,7 +31,7 @@ public class EventsController {
         headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
         HttpEntity<List<Long>> httpEntity = new HttpEntity<>(eventIds, headers);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, List.class);
+        ResponseEntity<EventSummaryList> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, EventSummaryList.class);
         //todo change object to what is provided from itinerary team
         //finally merge those with the original event details to return
         ExtEventList extEventList = new extEventList();

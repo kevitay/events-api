@@ -1,8 +1,10 @@
 package com.galvanize.events;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -16,10 +18,32 @@ public class EventsController {
     }
 
     @GetMapping
-    public EventList getEventList() {
+    public ExtEventList getEventList() {
+        //first get list of event IDs
         EventList eventList;
         eventList = eventsService.getEvents();
-        return eventList;
+        List<Long> eventIds = eventList.getIDList();
+
+        //then send that list to itinerary API to get dates and locations
+
+        String url = "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/activities/getsummary";
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<List<Long>> httpEntity = new HttpEntity<>(eventIds, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<List> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, List.class);
+        //todo change object to what is provided from itinerary team
+        //finally merge those with the original event details to return
+        ExtEventList extEventList = new extEventList();
+        for (int i =0; i < response.getBody().size(); i++) {
+            for (int j = 0; j < eventList.size(); j++) {
+                if(eventList.get(j).getId() == response.getBody().get(i).getId()) {
+                    extEventList.add(eventList.get(j), response.getBody().get(i));
+                    //todo can set specific fields from response.getbody() if needed.
+                }
+            }
+        }
+        return extEventList;
     }
 
     @GetMapping("/{id}")

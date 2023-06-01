@@ -32,7 +32,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"creatorID\": \"aabbcc1234\",\r\n    \"organization\": \"Phils Buds\",\r\n    \"name\": \"St. Patricks Bar Crawl '01\",\r\n    \"type\": \"Social\",\r\n    \"description\": \"Phil's 21st Birthday Pub Crawl\",\r\n    \"startDateTime\": \"2001-01-01@16:00:00\",\r\n    \"endDateTime\": \"2001-01-02@02:00:00\",\r\n    \"startLocation\": {\r\n        \"name\": \"Phil's Tiki Bar\",\r\n        \"address\": \"123 Example St\",\r\n        \"city\": \"Normal\",\r\n        \"state\": \"IL\",\r\n        \"zipCode\": 61761\r\n    },\r\n    \"endLocation\": {\r\n        \"name\": \"Greg's Oldtowne Tavern\",\r\n        \"address\": \"123 Example St\",\r\n        \"city\": \"Normal\",\r\n        \"state\": \"IL\",\r\n        \"zipCode\": 61761\r\n    },\r\n    \"baseCost\": \"50\",\r\n    \"status\": \"planned\",\r\n    \"isPublic\": false\r\n}",
+					"raw": "{\r\n    \"creatorID\": \"phil\",\r\n    \"organization\": \"Phils Buds\",\r\n    \"name\": \"St. Patricks Bar Crawl '01\",\r\n    \"type\": \"Social\",\r\n    \"description\": \"Phil's 21st Birthday Pub Crawl\",\r\n    \"baseCost\": \"50\",\r\n    \"status\": \"planned\",\r\n    \"public\": false\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -65,7 +65,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 2,\r\n    \"creatorID\": \"phil\",\r\n    \"organization\": \"Phils Buds\",\r\n    \"name\": \"St. Patricks Bar Crawl '01\",\r\n    \"type\": \"Social\",\r\n    \"description\": \"Phil's 21st Birthday Pub Crawl\",\r\n    \"startDateTime\": \"2001-01-01@16:00:00\",\r\n    \"endDateTime\": \"2001-01-02@02:00:00\",\r\n    \"startLocation\": {\r\n        \"name\": \"Phil's Tiki Bar\",\r\n        \"address\": \"123 Example St\",\r\n        \"city\": \"Normal\",\r\n        \"state\": \"IL\",\r\n        \"zipCode\": 61761\r\n    },\r\n    \"endLocation\": {\r\n        \"name\": \"Greg's Oldtowne Tavern\",\r\n        \"address\": \"123 Example St\",\r\n        \"city\": \"Normal\",\r\n        \"state\": \"IL\",\r\n        \"zipCode\": 61761\r\n    },\r\n    \"baseCost\": \"50\",\r\n    \"status\": \"planned\",\r\n    \"isPublic\": false\r\n}",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"creatorID\": \"phil\",\r\n    \"organization\": \"Phils Buds\",\r\n    \"name\": \"St. Patricks Bar Crawl '01\",\r\n    \"type\": \"Social\",\r\n    \"description\": \"Phil's 21st Birthday Pub Crawl\",\r\n    \"baseCost\": \"50\",\r\n    \"status\": \"planned\",\r\n    \"public\": false\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -123,105 +123,6 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\"status\": \"upcoming\"}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/2",
-					"protocol": "http",
-					"host": [
-						"ad0bcd07c990f4a9d9879e71472608fa-1526526031",
-						"us-west-2",
-						"elb",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"api",
-						"event",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Event Start and End Dates",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"startDateTime\": \"3901-02-01@15:00:00\", \r\n    \"endDateTime\": \"3901-02-02@09:00:00\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/2",
-					"protocol": "http",
-					"host": [
-						"ad0bcd07c990f4a9d9879e71472608fa-1526526031",
-						"us-west-2",
-						"elb",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"api",
-						"event",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Event Start Date",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"startDateTime\": \"3901-02-01@15:00:00\"}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/2",
-					"protocol": "http",
-					"host": [
-						"ad0bcd07c990f4a9d9879e71472608fa-1526526031",
-						"us-west-2",
-						"elb",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"api",
-						"event",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Event End Date",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"endDateTime\": \"3901-02-02@09:00:00\"}",
 					"options": {
 						"raw": {
 							"language": "json"

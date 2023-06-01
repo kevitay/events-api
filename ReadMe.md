@@ -31,25 +31,9 @@ sample request body:
     "name": "St. Patricks Bar Crawl '01",
     "type": "Social",
     "description": "Phil's 21st Birthday Pub Crawl",
-    "startDateTime": "2001-01-01@16:00:00",
-    "endDateTime": "2001-01-02@02:00:00",
-    "startLocation": {
-        "name": "Phil's Tiki Bar",
-        "address": "123 Example St",
-        "city": "Normal",
-        "state": "IL",
-        "zipCode": 61761
-    },
-    "endLocation": {
-        "name": "Greg's Oldtowne Tavern",
-        "address": "123 Example St",
-        "city": "Normal",
-        "state": "IL",
-        "zipCode": 61761
-    },
     "baseCost": "50",
     "status": "planned",
-    "isPublic": false
+    "public": false
 }
 ```
 
@@ -74,25 +58,9 @@ sample request body:
     "name": "St. Patricks Bar Crawl '01",
     "type": "Social",
     "description": "Phil's 21st Birthday Pub Crawl",
-    "startDateTime": "2001-01-01@16:00:00",
-    "endDateTime": "2001-01-02@02:00:00",
-    "startLocation": {
-        "name": "Phil's Tiki Bar",
-        "address": "123 Example St",
-        "city": "Normal",
-        "state": "IL",
-        "zipCode": 61761
-    },
-    "endLocation": {
-        "name": "Greg's Oldtowne Tavern",
-        "address": "123 Example St",
-        "city": "Normal",
-        "state": "IL",
-        "zipCode": 61761
-    },
     "baseCost": "50",
     "status": "planned",
-    "isPublic": false
+    "public": false
 }
 ```
 
@@ -106,7 +74,6 @@ response codes:
 PATCH EVENT
 -----------
 Event API supports PATCH update for Event Status to allow the owner to change (i.e. Cancel or change from Draft to Planned)
-Event API supports PATCH update to Event Start and End Dates if Itinerary dates is outside original Event dates.
 (Potential Future Enhancement to support a patch of the event owner)
 
 `PATCH /api/event/{id}`
@@ -114,15 +81,6 @@ Event API supports PATCH update to Event Start and End Dates if Itinerary dates 
 sample request body:
 
 `{"status": "upcoming"}`
-
--or-
-`{"startDateTime": "3901-02-01@15:00:00", "endDateTime": "3901-02-02@09:00:00"}`
-
--or-
-`{"startDateTime": "3901-02-01@15:00:00"}`
-
--or-
-`{"endDateTime": "3901-02-02@09:00:00"}`
 
 response body includes updated event.
 

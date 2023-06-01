@@ -1,5 +1,7 @@
 package com.galvanize.events;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 
@@ -58,5 +60,13 @@ public class EventsService {
         }else{
             throw new EventNotFoundException();
         }
+    }
+
+    public EventList getEventByCreator(String creatorId) {
+        List<Event> eventList = eventsRepository.findByCreatorId(creatorId);
+        if(!eventList.isEmpty()) {
+            return new EventList(eventList);
+        }
+        return null;
     }
 }

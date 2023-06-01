@@ -71,7 +71,7 @@ public class EventsControllerTests {
     }
 
     @Test
-    public void getEventsByUserReturnsEvents() throws Exception {
+    public void getEventsByCreatorIdReturnsEvents() throws Exception {
         HashMap<String, String> startAddress = new HashMap<>();
         startAddress.put("name", "Tiki Bar");
         startAddress.put("address", "555 Elm Street");
@@ -98,6 +98,14 @@ public class EventsControllerTests {
                 .andExpect(jsonPath("$.eventList[0].name").value("St. Patricks Bar Crawl"))
                 .andExpect(jsonPath("$.eventList[0].description").value("21st Birthday Pub Crawl"));
 
+    }
+
+    @Test
+    public void getEventsByCreatorIDReturnsNoContent() throws Exception {
+        doThrow(new EventNotFoundException()).when(eventsService).getEventByCreator(ArgumentMatchers.anyString());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/event?creator=Bob"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
     @Test

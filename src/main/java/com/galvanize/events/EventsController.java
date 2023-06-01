@@ -4,6 +4,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin
@@ -32,14 +33,39 @@ public class EventsController {
         HttpEntity<List<Long>> httpEntity = new HttpEntity<>(eventIds, headers);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<EventSummaryList> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, EventSummaryList.class);
-        //todo change object to what is provided from itinerary team
         //finally merge those with the original event details to return
-        ExtEventList extEventList = new extEventList();
+        ExtEventList extEventList = new ExtEventList();
+//      Iterate over each entry in the eventSummaryList returned from itinerary
         for (int i =0; i < response.getBody().size(); i++) {
+//          Iterate over original event list to locate matching event for the current eventSummary
             for (int j = 0; j < eventList.size(); j++) {
-                if(eventList.get(j).getId() == response.getBody().get(i).getId()) {
-                    extEventList.add(eventList.get(j), response.getBody().get(i));
-                    //todo can set specific fields from response.getbody() if needed.
+                if(eventList.get(j).getId() == response.getBody().get(i).getEventId()) {
+//                  Building starting and ending Hashmap to convert from Activity to desired format
+                    HashMap<String, String> startAddress = new HashMap<>();
+                    startAddress.put("address", response.getBody().get(i).getStartingActivity().getAddress());
+                    startAddress.put("city", response.getBody().get(i).getStartingActivity().getCity());
+                    startAddress.put("state", response.getBody().get(i).getStartingActivity().getState());
+                    startAddress.put("zipcode", response.getBody().get(i).getStartingActivity().getZipToString());
+                    HashMap<String, String> endAddress = new HashMap<>();
+                    endAddress.put("address", response.getBody().get(i).getEndingActivity().getAddress());
+                    endAddress.put("city", response.getBody().get(i).getEndingActivity().getCity());
+                    endAddress.put("state", response.getBody().get(i).getEndingActivity().getState());
+                    endAddress.put("zipcode", response.getBody().get(i).getEndingActivity().getZipToString());
+//                  Create instance of extEvent to start building our response body
+                    ExtEvent extEvent = new ExtEvent(eventList.get(j).getId(),
+                            eventList.get(j).getCreatorID(),
+                            eventList.get(j).getOrganization(),
+                            eventList.get(j).getName(),
+                            eventList.get(j).getType(),
+                            eventList.get(j).getDescription(),
+                            response.getBody().get(i).getStartingActivity().getStartTime(),
+                            response.getBody().get(i).getEndingActivity().getEndTime(),
+                            startAddress,
+                            endAddress,
+                            eventList.get(j).getBaseCost(),
+                            eventList.get(j).getStatus(),
+                            eventList.get(j).getPublic());
+                    extEventList.add(extEvent);
                 }
             }
         }

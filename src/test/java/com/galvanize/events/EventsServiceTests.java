@@ -77,6 +77,42 @@ public class EventsServiceTests {
     }
 
     @Test
+    public void getEventListByCreatorId() {
+        //todo mock call to itinerary api to get dates
+        HashMap<String, String> startAddress = new HashMap<>();
+        startAddress.put("name", "Tiki Bar");
+        startAddress.put("address", "555 Elm Street");
+        startAddress.put("city", "Anyplace");
+        startAddress.put("state", "GA");
+        startAddress.put("zipcode", "55555");
+        HashMap<String, String> endAddress = new HashMap<>();
+        endAddress.put("name", "Tavern");
+        endAddress.put("address", "555 Main Street");
+        endAddress.put("city", "Anyplace");
+        endAddress.put("state", "GA");
+        endAddress.put("zipcode", "55555");
+        Date startDate= new Date(2001, 01, 01, 10,00, 00);
+        Date endDate= new Date(2001, 01, 02, 04,00, 00);
+        Event event = new Event("Bob", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false);
+        when(eventsRepository.findByCreatorID(anyString()))
+                .thenReturn(Arrays.asList(event));
+
+        EventList foundEvents = eventsService.getEventByCreator("Bob");
+        assertThat(foundEvents).isNotNull();
+        assertThat(foundEvents.get(0).getCreatorID()).isEqualTo(event.getCreatorID());
+        //todo add other values if desired
+    }
+
+    @Test
+    public void getEventByCreatorIdNoContent() {
+        when(eventsRepository.findByCreatorID(anyString()))
+                .thenThrow(EventNotFoundException.class);
+        assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
+            eventsService.getEventByCreator("Bob");
+        });
+    }
+
+    @Test
     public void getEventByIdNoContent() {
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());

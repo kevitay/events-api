@@ -66,4 +66,8 @@ public class EventList  {
         }
         return eventIds;
     }
+
+    public void add(Event event) {
+        this.eventList.add(event);
+    }
 }

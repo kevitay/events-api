@@ -22,11 +22,19 @@ public class EventsController {
     }
 
     @GetMapping
-    public EventList getEventList() {
+    public EventList getEventList(@RequestParam (required = false) String creator) {
         EventList eventList;
-        eventList = eventsService.getEvents();
+        System.out.println(creator);
+        if(creator == null) {
+            eventList = eventsService.getEvents();
+        } else {
+            eventList = eventsService.getEventByCreator(creator);
+        }
         return eventList;
     }
+
+
+
     @ResponseBody
     @GetMapping("/extended")
     public ExtEventList getExtEventList() {

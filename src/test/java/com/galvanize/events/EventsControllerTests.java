@@ -71,6 +71,44 @@ public class EventsControllerTests {
     }
 
     @Test
+    public void getEventsByCreatorIdReturnsEvents() throws Exception {
+        HashMap<String, String> startAddress = new HashMap<>();
+        startAddress.put("name", "Tiki Bar");
+        startAddress.put("address", "555 Elm Street");
+        startAddress.put("city", "Anyplace");
+        startAddress.put("state", "GA");
+        startAddress.put("zipcode", "55555");
+        HashMap<String, String> endAddress = new HashMap<>();
+        endAddress.put("name", "Tavern");
+        endAddress.put("address", "555 Main Street");
+        endAddress.put("city", "Anyplace");
+        endAddress.put("state", "GA");
+        endAddress.put("zipcode", "55555");
+
+        Date startDate = new Date(2001, 01, 01, 10, 00, 00);
+        Date endDate = new Date(2001, 01, 02, 04, 00, 00);
+        EventList existingEventList = new EventList();
+             existingEventList.add(new Event("Bob", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false));
+        when(eventsService.getEventByCreator(anyString())).thenReturn(existingEventList);
+                 mockMvc.perform(MockMvcRequestBuilders.get("/api/event?creator=Bob"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.eventList[0].creatorID").value("Bob"))
+                .andExpect(jsonPath("$.eventList[0].organization").value("Phils Buds"))
+                .andExpect(jsonPath("$.eventList[0].name").value("St. Patricks Bar Crawl"))
+                .andExpect(jsonPath("$.eventList[0].description").value("21st Birthday Pub Crawl"));
+
+    }
+
+    @Test
+    public void getEventsByCreatorIDReturnsNoContent() throws Exception {
+        doThrow(new EventNotFoundException()).when(eventsService).getEventByCreator(ArgumentMatchers.anyString());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/event?creator=Bob"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
     public void getEventByIdReturnsNoContent() throws Exception {
         doThrow(new EventNotFoundException()).when(eventsService).getEventById(ArgumentMatchers.anyLong());
         mockMvc.perform(MockMvcRequestBuilders.get("/api/event/10"))

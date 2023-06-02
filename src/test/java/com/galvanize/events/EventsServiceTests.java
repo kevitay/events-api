@@ -94,7 +94,7 @@ public class EventsServiceTests {
         Date startDate= new Date(2001, 01, 01, 10,00, 00);
         Date endDate= new Date(2001, 01, 02, 04,00, 00);
         Event event = new Event("Bob", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false);
-        when(eventsRepository.findByCreatorId(anyString()))
+        when(eventsRepository.findByCreatorID(anyString()))
                 .thenReturn(Arrays.asList(event));
 
         EventList foundEvents = eventsService.getEventByCreator("Bob");
@@ -105,7 +105,7 @@ public class EventsServiceTests {
 
     @Test
     public void getEventByCreatorIdNoContent() {
-        when(eventsRepository.findByCreatorId(anyString()))
+        when(eventsRepository.findByCreatorID(anyString()))
                 .thenThrow(EventNotFoundException.class);
         assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
             eventsService.getEventByCreator("Bob");

@@ -62,8 +62,8 @@ public class EventsService {
         }
     }
 
-    public EventList getEventByCreator(String creatorId) {
-        List<Event> eventList = eventsRepository.findByCreatorId(creatorId);
+    public EventList getEventByCreator(String creatorID) {
+        List<Event> eventList = eventsRepository.findByCreatorID(creatorID);
         if(!eventList.isEmpty()) {
             return new EventList(eventList);
         }

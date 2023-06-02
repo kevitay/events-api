@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface EventsRepository extends JpaRepository<Event, Long> {
 
 
-    List<Event> findByCreatorId(String creatorId);
+    List<Event> findByCreatorID(String creatorId);
 
 }

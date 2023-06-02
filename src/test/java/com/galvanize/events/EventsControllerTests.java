@@ -43,21 +43,21 @@ public class EventsControllerTests {
     @Test
     public void getEventByIdReturnsEvent() throws Exception {
         //todo mock call to itinerary api to get dates
-        HashMap<String, String> startAddress = new HashMap<>();
-        startAddress.put("name", "Tiki Bar");
-        startAddress.put("address", "555 Elm Street");
-        startAddress.put("city", "Anyplace");
-        startAddress.put("state", "GA");
-        startAddress.put("zipcode", "55555");
-        HashMap<String, String> endAddress = new HashMap<>();
-        endAddress.put("name", "Tavern");
-        endAddress.put("address", "555 Main Street");
-        endAddress.put("city", "Anyplace");
-        endAddress.put("state", "GA");
-        endAddress.put("zipcode", "55555");
-
-        Date startDate = new Date(2001, 01, 01, 10, 00, 00);
-        Date endDate = new Date(2001, 01, 02, 04, 00, 00);
+//        HashMap<String, String> startAddress = new HashMap<>();
+//        startAddress.put("name", "Tiki Bar");
+//        startAddress.put("address", "555 Elm Street");
+//        startAddress.put("city", "Anyplace");
+//        startAddress.put("state", "GA");
+//        startAddress.put("zipcode", "55555");
+//        HashMap<String, String> endAddress = new HashMap<>();
+//        endAddress.put("name", "Tavern");
+//        endAddress.put("address", "555 Main Street");
+//        endAddress.put("city", "Anyplace");
+//        endAddress.put("state", "GA");
+//        endAddress.put("zipcode", "55555");
+//
+//        Date startDate = new Date(2001, 01, 01, 10, 00, 00);
+//        Date endDate = new Date(2001, 01, 02, 04, 00, 00);
         Event existingEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false);
         when(eventsService.getEventById(anyLong())).thenReturn(existingEvent);
         Long id = existingEvent.getId();
@@ -72,21 +72,21 @@ public class EventsControllerTests {
 
     @Test
     public void getEventsByCreatorIdReturnsEvents() throws Exception {
-        HashMap<String, String> startAddress = new HashMap<>();
-        startAddress.put("name", "Tiki Bar");
-        startAddress.put("address", "555 Elm Street");
-        startAddress.put("city", "Anyplace");
-        startAddress.put("state", "GA");
-        startAddress.put("zipcode", "55555");
-        HashMap<String, String> endAddress = new HashMap<>();
-        endAddress.put("name", "Tavern");
-        endAddress.put("address", "555 Main Street");
-        endAddress.put("city", "Anyplace");
-        endAddress.put("state", "GA");
-        endAddress.put("zipcode", "55555");
-
-        Date startDate = new Date(2001, 01, 01, 10, 00, 00);
-        Date endDate = new Date(2001, 01, 02, 04, 00, 00);
+//        HashMap<String, String> startAddress = new HashMap<>();
+//        startAddress.put("name", "Tiki Bar");
+//        startAddress.put("address", "555 Elm Street");
+//        startAddress.put("city", "Anyplace");
+//        startAddress.put("state", "GA");
+//        startAddress.put("zipcode", "55555");
+//        HashMap<String, String> endAddress = new HashMap<>();
+//        endAddress.put("name", "Tavern");
+//        endAddress.put("address", "555 Main Street");
+//        endAddress.put("city", "Anyplace");
+//        endAddress.put("state", "GA");
+//        endAddress.put("zipcode", "55555");
+//
+//        Date startDate = new Date(2001, 01, 01, 10, 00, 00);
+//        Date endDate = new Date(2001, 01, 02, 04, 00, 00);
         EventList existingEventList = new EventList();
              existingEventList.add(new Event("Bob", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false));
              when(eventsService.getEventByCreator(anyString())).thenReturn(existingEventList);
@@ -102,21 +102,21 @@ public class EventsControllerTests {
 
     @Test
     public void getExtendedEventList() throws Exception {
-        HashMap<String, String> startAddress = new HashMap<>();
-        startAddress.put("name", "Tiki Bar");
-        startAddress.put("address", "555 Elm Street");
-        startAddress.put("city", "Anyplace");
-        startAddress.put("state", "GA");
-        startAddress.put("zipcode", "55555");
-        HashMap<String, String> endAddress = new HashMap<>();
-        endAddress.put("name", "Tavern");
-        endAddress.put("address", "555 Main Street");
-        endAddress.put("city", "Anyplace");
-        endAddress.put("state", "GA");
-        endAddress.put("zipcode", "55555");
-
-        Date startDate = new Date(2001, 01, 01, 10, 00, 00);
-        Date endDate = new Date(2001, 01, 02, 04, 00, 00);
+//        HashMap<String, String> startAddress = new HashMap<>();
+//        startAddress.put("name", "Tiki Bar");
+//        startAddress.put("address", "555 Elm Street");
+//        startAddress.put("city", "Anyplace");
+//        startAddress.put("state", "GA");
+//        startAddress.put("zipcode", "55555");
+//        HashMap<String, String> endAddress = new HashMap<>();
+//        endAddress.put("name", "Tavern");
+//        endAddress.put("address", "555 Main Street");
+//        endAddress.put("city", "Anyplace");
+//        endAddress.put("state", "GA");
+//        endAddress.put("zipcode", "55555");
+//
+//        Date startDate = new Date(2001, 01, 01, 10, 00, 00);
+//        Date endDate = new Date(2001, 01, 02, 04, 00, 00);
         EventList existingEventList = new EventList();
         existingEventList.add(new Event("Bob", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false));
         when(eventsService.getEvents()).thenReturn(existingEventList);

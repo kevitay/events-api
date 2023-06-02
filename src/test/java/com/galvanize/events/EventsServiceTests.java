@@ -51,7 +51,6 @@ public class EventsServiceTests {
 
     @Test
     public void getEventById() {
-        //todo mock call to itinerary api to get dates
         HashMap<String, String> startAddress = new HashMap<>();
         startAddress.put("name", "Tiki Bar");
         startAddress.put("address", "555 Elm Street");

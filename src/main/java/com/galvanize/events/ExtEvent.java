@@ -1,27 +1,29 @@
 package com.galvanize.events;
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
-@Entity
-@Table(name = "events")
-public class Event {
+public class ExtEvent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String creatorID; //todo finalize format
     private String organization;
-    @Column(name = "event_name")
     private String name;
     private String type;
     private String description;
+
+    private String startDateTime;
+
+    private String endDateTime;
+    private HashMap<String, String> startLocation;
+    private HashMap<String, String> endLocation;
     private Double baseCost;
     private String status; //todo change to enum
     private Boolean isPublic;
 
-    public Event() {
-    }
-
-    public Event(String creatorID, String organization, String name, String type, String description, Double baseCost, String status, Boolean isPublic) {
+    public ExtEvent(Long id, String creatorID, String organization, String name, String type, String description, Double baseCost, String status, Boolean isPublic) {
+        this.id = id;
         this.creatorID = creatorID;
         this.organization = organization;
         this.name = name;
@@ -34,6 +36,10 @@ public class Event {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCreatorID() {
@@ -76,6 +82,38 @@ public class Event {
         this.description = description;
     }
 
+    public String getStartDateTime() {
+        return startDateTime;
+    }
+
+    public void setStartDateTime(String startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public String getEndDateTime() {
+        return endDateTime;
+    }
+
+    public void setEndDateTime(String endDateTime) {
+        this.endDateTime = endDateTime;
+    }
+
+    public HashMap<String, String> getStartLocation() {
+        return startLocation;
+    }
+
+    public void setStartLocation(HashMap<String, String> startLocation) {
+        this.startLocation = startLocation;
+    }
+
+    public HashMap<String, String> getEndLocation() {
+        return endLocation;
+    }
+
+    public void setEndLocation(HashMap<String, String> endLocation) {
+        this.endLocation = endLocation;
+    }
+
     public Double getBaseCost() {
         return baseCost;
     }
@@ -96,7 +134,12 @@ public class Event {
         return isPublic;
     }
 
-    public void setPublic(Boolean isPublic) {
-        this.isPublic = isPublic;
+    public void setPublic(Boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.startLocation;
     }
 }

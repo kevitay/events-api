@@ -1,8 +1,7 @@
 package com.galvanize.events;
-
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -63,46 +62,11 @@ public class EventsService {
         }
     }
 
-    public Event updateEvent(Long id, Date startDateTime, Date endDateTime) {
-        Optional<Event> oEvent = eventsRepository.findById(id);
-        if(oEvent.isPresent()){
-            try {
-                oEvent.get().setStartDateTime(startDateTime);
-                oEvent.get().setEndDateTime(endDateTime);
-                return eventsRepository.save(oEvent.get());
-            } catch(IllegalArgumentException e) {
-                throw new InvalidEventUpdateException();
-            }
-        }else{
-            throw new EventNotFoundException();
+    public EventList getEventByCreator(String creatorID) {
+        List<Event> eventList = eventsRepository.findByCreatorID(creatorID);
+        if(!eventList.isEmpty()) {
+            return new EventList(eventList);
         }
-    }
-
-    public Event updateEventStart(Long id, Date startDateTime) {
-        Optional<Event> oEvent = eventsRepository.findById(id);
-        if(oEvent.isPresent()){
-            try {
-                oEvent.get().setStartDateTime(startDateTime);
-                return eventsRepository.save(oEvent.get());
-            } catch(IllegalArgumentException e) {
-                throw new InvalidEventUpdateException();
-            }
-        }else{
-            throw new EventNotFoundException();
-        }
-    }
-
-    public Event updateEventEnd(Long id, Date endDateTime) {
-        Optional<Event> oEvent = eventsRepository.findById(id);
-        if(oEvent.isPresent()){
-            try {
-                oEvent.get().setEndDateTime(endDateTime);
-                return eventsRepository.save(oEvent.get());
-            } catch(IllegalArgumentException e) {
-                throw new InvalidEventUpdateException();
-            }
-        }else{
-            throw new EventNotFoundException();
-        }
+        return null;
     }
 }

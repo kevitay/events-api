@@ -7,6 +7,25 @@ Event API supports Get Event List
 
 `GET /api/event/` returns list of all events (will eventually be all events visible to user)
 
+GET BY CREATOR
+--------------
+Event API supports Get Event List for a specified CreatorID
+
+`GET /api/event?creator={creatorID}` returns list of all events the specified creator owns
+
+response codes:
+- returns 200 - 'Success' when event list is found
+- returns 204 - 'No Content' when provided creator was not found
+
+GET EXTENDED EVENT
+------------------
+Event API supports Get Extended Event List which includes start and end details from the Itinerary API
+`GET /api/event/extended` returns list of all events (will eventually be all events visible to user)
+
+response codes:
+- returns 200 - 'Success' when events are found
+- returns 204 - 'No Content' when no events found
+
 GET BY ID
 ---------
 Event API supports Get Event by Event ID
@@ -31,25 +50,9 @@ sample request body:
     "name": "St. Patricks Bar Crawl '01",
     "type": "Social",
     "description": "Phil's 21st Birthday Pub Crawl",
-    "startDateTime": "2001-01-01@16:00:00",
-    "endDateTime": "2001-01-02@02:00:00",
-    "startLocation": {
-        "name": "Phil's Tiki Bar",
-        "address": "123 Example St",
-        "city": "Normal",
-        "state": "IL",
-        "zipCode": 61761
-    },
-    "endLocation": {
-        "name": "Greg's Oldtowne Tavern",
-        "address": "123 Example St",
-        "city": "Normal",
-        "state": "IL",
-        "zipCode": 61761
-    },
     "baseCost": "50",
     "status": "planned",
-    "isPublic": false
+    "public": false
 }
 ```
 
@@ -74,25 +77,9 @@ sample request body:
     "name": "St. Patricks Bar Crawl '01",
     "type": "Social",
     "description": "Phil's 21st Birthday Pub Crawl",
-    "startDateTime": "2001-01-01@16:00:00",
-    "endDateTime": "2001-01-02@02:00:00",
-    "startLocation": {
-        "name": "Phil's Tiki Bar",
-        "address": "123 Example St",
-        "city": "Normal",
-        "state": "IL",
-        "zipCode": 61761
-    },
-    "endLocation": {
-        "name": "Greg's Oldtowne Tavern",
-        "address": "123 Example St",
-        "city": "Normal",
-        "state": "IL",
-        "zipCode": 61761
-    },
     "baseCost": "50",
     "status": "planned",
-    "isPublic": false
+    "public": false
 }
 ```
 
@@ -106,7 +93,6 @@ response codes:
 PATCH EVENT
 -----------
 Event API supports PATCH update for Event Status to allow the owner to change (i.e. Cancel or change from Draft to Planned)
-Event API supports PATCH update to Event Start and End Dates if Itinerary dates is outside original Event dates.
 (Potential Future Enhancement to support a patch of the event owner)
 
 `PATCH /api/event/{id}`
@@ -114,15 +100,6 @@ Event API supports PATCH update to Event Start and End Dates if Itinerary dates 
 sample request body:
 
 `{"status": "upcoming"}`
-
--or-
-`{"startDateTime": "3901-02-01@15:00:00", "endDateTime": "3901-02-02@09:00:00"}`
-
--or-
-`{"startDateTime": "3901-02-01@15:00:00"}`
-
--or-
-`{"endDateTime": "3901-02-02@09:00:00"}`
 
 response body includes updated event.
 

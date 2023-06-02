@@ -11,15 +11,48 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/event",
+					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"ad0bcd07c990f4a9d9879e71472608fa-1526526031",
+						"us-west-2",
+						"elb",
+						"amazonaws",
+						"com"
 					],
-					"port": "8080",
+					"path": [
+						"api",
+						"event",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Event List byCreator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event?creator=phil",
+					"protocol": "http",
+					"host": [
+						"ad0bcd07c990f4a9d9879e71472608fa-1526526031",
+						"us-west-2",
+						"elb",
+						"amazonaws",
+						"com"
+					],
 					"path": [
 						"api",
 						"event"
+					],
+					"query": [
+						{
+							"key": "creator",
+							"value": "phil"
+						}
 					]
 				}
 			},
@@ -32,7 +65,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"creatorID\": \"phil\",\r\n    \"organization\": \"Phils Buds\",\r\n    \"name\": \"St. Patricks Bar Crawl '01\",\r\n    \"type\": \"Social\",\r\n    \"description\": \"Phil's 21st Birthday Pub Crawl\",\r\n    \"baseCost\": \"50\",\r\n    \"status\": \"planned\",\r\n    \"public\": false\r\n}",
+					"raw": "{\r\n    \"creatorID\": \"phil\",\r\n    \"organization\": \"My 2 Test Phils Buds\",\r\n    \"name\": \"St. Patricks Bar Crawl '01\",\r\n    \"type\": \"Social\",\r\n    \"description\": \"Phil's 21st Birthday Pub Crawl\",\r\n    \"baseCost\": \"50\",\r\n    \"status\": \"planned\",\r\n    \"public\": false\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -97,7 +130,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/2",
+					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/16",
 					"protocol": "http",
 					"host": [
 						"ad0bcd07c990f4a9d9879e71472608fa-1526526031",
@@ -109,7 +142,7 @@
 					"path": [
 						"api",
 						"event",
-						"2"
+						"16"
 					]
 				}
 			},
@@ -167,6 +200,36 @@
 						"api",
 						"event",
 						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Event Extended",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/extended",
+					"protocol": "http",
+					"host": [
+						"ad0bcd07c990f4a9d9879e71472608fa-1526526031",
+						"us-west-2",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"event",
+						"extended"
 					]
 				}
 			},

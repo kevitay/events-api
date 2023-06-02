@@ -7,6 +7,25 @@ Event API supports Get Event List
 
 `GET /api/event/` returns list of all events (will eventually be all events visible to user)
 
+GET BY CREATOR
+--------------
+Event API supports Get Event List for a specified CreatorID
+
+`GET /api/event?creator={creatorID}` returns list of all events the specified creator owns
+
+response codes:
+- returns 200 - 'Success' when event list is found
+- returns 204 - 'No Content' when provided creator was not found
+
+GET EXTENDED EVENT
+------------------
+Event API supports Get Extended Event List which includes start and end details from the Itinerary API
+`GET /api/event/extended` returns list of all events (will eventually be all events visible to user)
+
+response codes:
+- returns 200 - 'Success' when events are found
+- returns 204 - 'No Content' when no events found
+
 GET BY ID
 ---------
 Event API supports Get Event by Event ID

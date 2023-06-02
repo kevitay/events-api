@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.xml.bind.SchemaOutputResolver;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,10 +30,15 @@ public class EventsController {
     @ResponseBody
     @GetMapping("/extended")
     public ExtEventList getExtEventList() {
-        //first get list of event IDs
+        //first get list of events and break down to just their event IDs
         EventList eventList;
         eventList = eventsService.getEvents();
-        List<Long> eventIdArray = eventList.getIDList();
+        ArrayList<Long> eventIds = new ArrayList<>();
+        for (int i = 0; i < eventList.size(); i++) {
+            eventIds.add(eventList.get(i).getId());
+        }
+        EventIdArray eventIdArray = new EventIdArray(eventIds);
+        System.out.println(eventIdArray);
 
         //then send that list to itinerary API to get dates and locations
         ExtEventList extEventList = new ExtEventList();
@@ -39,7 +46,7 @@ public class EventsController {
             String url = "http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/summaryList";
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-            HttpEntity<List<Long>> httpEntity = new HttpEntity<>(eventIdArray, headers);
+            HttpEntity<EventIdArray> httpEntity = new HttpEntity<>(eventIdArray, headers);
             RestTemplate restTemplate = new RestTemplate();
             System.out.println(eventIdArray);
             ResponseEntity<EventSummaryList> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, EventSummaryList.class);

@@ -1,13 +1,12 @@
 package com.galvanize.events;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.http.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.*;
+
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,14 +29,14 @@ public class EventsIntegrationTests {
     public void beforeEach() {
         restTemplate = testRestTemplate.getRestTemplate();
         // Create a basic instance of the Apache HttpClient
-        HttpClient httpClient = HttpClientBuilder.create().build();
+//        HttpClient httpClient = HttpClientBuilder.create().build();
         // Set the httpClient as the default client used for all requests
-        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
+//        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
 
         /* Create Test Data */
         List<Event> events = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            events.add(new Event("AAADDD" + i, "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false))
+            events.add(new Event("AAADDD" + i, "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false));
         }
         eventsRepository.saveAll(events);
         }
@@ -55,7 +54,7 @@ public class EventsIntegrationTests {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
         HttpEntity<List<Long>> httpEntity = new HttpEntity<>(eventIds, headers);
-        ResponseEntity<Event> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, ActivitySummary.class);
+        ResponseEntity<ExtEventList> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, ExtEventList.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 //        assertThat(response.getBody().getActivitySummary()).isEqualTo(eventIds);

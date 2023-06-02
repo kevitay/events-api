@@ -36,4 +36,9 @@ public class EventSummaryList {
     public int size() {
         return eventSummaryList.size();
     }
+
+    @Override
+    public String toString() {
+        return eventSummaryList.get(0).getStartingActivity().getAddress();
+    }
 }

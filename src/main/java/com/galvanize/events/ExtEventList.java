@@ -19,4 +19,12 @@ public class ExtEventList {
     public void add(ExtEvent extEvent) {
         extEventList.add(extEvent);
     }
+
+    public List<ExtEvent> getExtEventList() {
+        return extEventList;
+    }
+
+    public void setExtEventList(List<ExtEvent> extEventList) {
+        this.extEventList = extEventList;
+    }
 }

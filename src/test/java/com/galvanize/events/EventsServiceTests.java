@@ -104,6 +104,15 @@ public class EventsServiceTests {
     }
 
     @Test
+    public void getEventByCreatorIdNoContent() {
+        when(eventsRepository.findByCreatorId(anyString()))
+                .thenThrow(EventNotFoundException.class);
+        assertThatExceptionOfType(EventNotFoundException.class).isThrownBy(() -> {
+            eventsService.getEventByCreator("Bob");
+        });
+    }
+
+    @Test
     public void getEventByIdNoContent() {
         when(eventsRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());

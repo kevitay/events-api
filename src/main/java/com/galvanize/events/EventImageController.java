@@ -13,8 +13,9 @@ public class EventImageController {
     public EventImageController(EventImageService eventImageService) {
         this.eventImageService = eventImageService;
     }
+
     @PostMapping("/{id}/eventImages")
-    public EventImage addImage(@PathVariable Long id, @RequestParam("eventImg") MultipartFile newImage){
+    public EventImage addImage(@PathVariable Long id, @RequestParam("eventImg") MultipartFile newImage) {
         return eventImageService.addEventImage(id, newImage);
     }
 

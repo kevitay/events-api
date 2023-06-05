@@ -8,14 +8,17 @@ public class EventImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Byte[] data;
-    private Long eventId;
+    @Column(columnDefinition = "bytea")
+    private byte[] data;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    Event event;
 
-    public EventImage(){
+    public EventImage() {
     }
 
-    public EventImage(Long eventId){
-        this.eventId = eventId;
+    public EventImage(Event event) {
+        this.event = event;
     }
 
     public Long getId() {
@@ -26,19 +29,20 @@ public class EventImage {
         this.id = id;
     }
 
-    public Byte[] getData() {
+    public byte[] getData() {
         return data;
     }
 
-    public void setData(Byte[] data) {
+    public void setData(byte[] data) {
         this.data = data;
     }
 
-    public Long getEventId() {
-        return eventId;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
+    public void setEvent(Event event) {
+        this.event = event;
     }
+
 }

@@ -164,6 +164,14 @@ public class EventsControllerTests {
     }
 
     @Test
+    public void getExtEventByIDReturnsNoContent() throws Exception {
+        doThrow(new EventNotFoundException()).when(eventsService).getEventById(ArgumentMatchers.anyLong());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/event/extended/10"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
     public void getEventsByCreatorIDReturnsNoContent() throws Exception {
         doThrow(new EventNotFoundException()).when(eventsService).getEventByCreator(ArgumentMatchers.anyString());
         mockMvc.perform(MockMvcRequestBuilders.get("/api/event?creator=Bob"))

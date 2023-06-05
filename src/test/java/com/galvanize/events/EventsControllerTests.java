@@ -139,6 +139,31 @@ public class EventsControllerTests {
     }
 
     @Test
+    public void getExtEventByIdReturnsExtEvent() throws Exception {
+        //todo mock call to itinerary api to get dates
+        Event event = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false);
+        ExtEvent extEvent = new ExtEvent(event.getId(),
+                event.getCreatorID(),
+                event.getOrganization(),
+                event.getName(),
+                event.getType(),
+                event.getDescription(),
+                event.getBaseCost(),
+                event.getStatus(),
+                event.getPublic());
+
+        when(eventsService.getEventById(anyLong())).thenReturn(event);
+        Long id = extEvent.getId();
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/event/extended/10"))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.organization").value("Phils Buds"))
+                .andExpect(jsonPath("$.name").value("St. Patricks Bar Crawl"))
+                .andExpect(jsonPath("$.description").value("21st Birthday Pub Crawl"));
+    }
+
+    @Test
     public void getEventsByCreatorIDReturnsNoContent() throws Exception {
         doThrow(new EventNotFoundException()).when(eventsService).getEventByCreator(ArgumentMatchers.anyString());
         mockMvc.perform(MockMvcRequestBuilders.get("/api/event?creator=Bob"))

@@ -9,6 +9,7 @@ import java.util.Optional;
 public class EventsService {
 
     EventsRepository eventsRepository;
+    EventImageRepository eventImageRepository;
 
     public EventsService(EventsRepository eventsRepository) {
         this.eventsRepository = eventsRepository;
@@ -68,5 +69,13 @@ public class EventsService {
             return new EventList(eventList);
         }
         return null;
+    }
+
+    public EventImage addEventImage(EventImage newImage){
+        try{
+            return eventImageRepository.save(newImage);
+        } catch(IllegalArgumentException e) {
+            throw new InvalidImageException();
+        }
     }
 }

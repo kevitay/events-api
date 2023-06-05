@@ -1,5 +1,6 @@
 package com.galvanize.events;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -17,6 +18,8 @@ public class Event {
     private Double baseCost;
     private String status; //todo change to enum
     private Boolean isPublic;
+    @OneToOne
+    private List<EventImage> eventImageList;
 
     public Event() {
     }
@@ -98,5 +101,12 @@ public class Event {
 
     public void setPublic(Boolean isPublic) {
         this.isPublic = isPublic;
+    }
+    public List<EventImage> getEventImageList() {
+        return eventImageList;
+    }
+
+    public void setEventImageList(List<EventImage> eventImageList) {
+        this.eventImageList = eventImageList;
     }
 }

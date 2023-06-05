@@ -194,6 +194,12 @@ public class EventsController {
         return new Event(); // todo change to optional?
     }
 
+    @PostMapping
+    public ResponseEntity<EventImage> addImage(@RequestBody EventImage newImage){
+        eventsService.addEventImage(newImage);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newImage);
+    }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void noEventFound(EventNotFoundException e) {
@@ -202,6 +208,11 @@ public class EventsController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void invalidEventFound(InvalidEventException e) {
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public void invalidImageFound(InvalidImageException e) {
     }
 
     @ExceptionHandler

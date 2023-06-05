@@ -59,7 +59,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "New Event",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -206,7 +206,7 @@
 			"response": []
 		},
 		{
-			"name": "Event Extended",
+			"name": "Event Extended List",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -230,6 +230,37 @@
 						"api",
 						"event",
 						"extended"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Event Extended By ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/extended/1",
+					"protocol": "http",
+					"host": [
+						"ad0bcd07c990f4a9d9879e71472608fa-1526526031",
+						"us-west-2",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"event",
+						"extended",
+						"1"
 					]
 				}
 			},

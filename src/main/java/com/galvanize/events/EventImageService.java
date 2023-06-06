@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,5 +31,10 @@ public class EventImageService {
             }
         }
         return null;
+    }
+
+    public List<EventImage> getEventImages(Long id) {
+        List<EventImage> eventImageList = eventImageRepository.findEventImageByEventId(id);
+            return eventImageList;
     }
 }

@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface EventImageRepository extends JpaRepository<EventImage, Long> {
-    List<EventImage> findEventImageByEvent(Long eventId);
+    List<EventImage> findEventImageByEventId(Long eventId);
 }

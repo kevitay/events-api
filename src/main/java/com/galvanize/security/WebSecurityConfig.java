@@ -43,8 +43,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JwtTokenAuthenticationFilter(jwtProperties), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 // Landing page open to all
-                .antMatchers(HttpMethod.GET, "/hello").permitAll()
-                .antMatchers(HttpMethod.GET, "/user").hasRole("USER")
+//                .antMatchers(HttpMethod.GET, "/hello").permitAll()
+//                .antMatchers(HttpMethod.GET, "/user").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/api/event").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/event/extended").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/event/extended/{id}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/event/{id}").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/event/{id}").hasRole("USER")
+                .antMatchers(HttpMethod.PUT, "/api/event/{id}").hasRole("USER")
+                .antMatchers(HttpMethod.PATCH, "/api/event/{id}").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/api/event").hasRole("USER")
                 // Everything else requires authentication
                 .anyRequest().authenticated();
     }

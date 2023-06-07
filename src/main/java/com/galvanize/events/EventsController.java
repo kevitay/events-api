@@ -22,7 +22,7 @@ public class EventsController {
     @GetMapping
     public EventList getEventList(@RequestParam (required = false) String creator) {
         EventList eventList;
-        System.out.println(creator);
+//        todo validate if authorization exists or return public
         if(creator == null) {
             eventList = eventsService.getEvents();
         } else {

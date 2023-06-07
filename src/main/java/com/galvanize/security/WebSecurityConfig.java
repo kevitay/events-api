@@ -47,19 +47,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Landing page open to all
 //                .antMatchers(HttpMethod.GET, "/hello").permitAll()
 //                .antMatchers(HttpMethod.GET, "/user").hasRole("USER")
-                .antMatchers(HttpMethod.GET, "/api/event").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/event/extended").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/event/extended/{id}").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/event/{id}").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/event/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.PUT, "/api/event/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.PATCH, "/api/event/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.POST, "/api/event").hasRole("USER")
+//                .antMatchers(HttpMethod.GET, "/api/event").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/event/extended").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/event/extended/{id}").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/event/{id}").permitAll()
+//                .antMatchers(HttpMethod.DELETE, "/api/event/{id}").hasRole("USER")
+//                .antMatchers(HttpMethod.PUT, "/api/event/{id}").hasRole("USER")
+//                .antMatchers(HttpMethod.PATCH, "/api/event/{id}").hasRole("USER")
+//                .antMatchers(HttpMethod.POST, "/api/event").hasRole("USER")
 //                Event Image
-                .antMatchers(HttpMethod.GET, "/api/event/{id}/eventImages").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/event/{id}/eventImages").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/event/{id}/eventImages").permitAll()
+//                .antMatchers(HttpMethod.POST, "/api/event/{id}/eventImages").permitAll()
                 // Everything else requires authentication
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
     }
 
     @Bean

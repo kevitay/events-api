@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @WebMvcTest(EventsController.class)
 @TestPropertySource(locations= "classpath:application.properties")
 @Import(JwtProperties.class) // inserted import
@@ -248,7 +247,7 @@ public class EventsControllerTests {
                 .andExpect(status().isBadRequest());
     }
 
-    @WithMockUser(username = "TEST-USER", roles = "USER")
+   @WithMockUser(username = "TEST-USER", roles = "USER")
     @Test
     public void deleteEvent() throws Exception {
         mockMvc.perform(delete("/api/event/10"))

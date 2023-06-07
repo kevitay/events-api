@@ -51,10 +51,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/event/extended").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/event/extended/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/event/{id}").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/event/{id}").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/event/{id}").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/api/event/{id}").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/event").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/event/{id}").hasRole("USER")
+                .antMatchers(HttpMethod.PUT, "/api/event/{id}").hasRole("USER")
+                .antMatchers(HttpMethod.PATCH, "/api/event/{id}").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/api/event").hasRole("USER")
                 // Everything else requires authentication
                 .anyRequest().authenticated();
     }

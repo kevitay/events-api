@@ -241,7 +241,6 @@ public class EventsControllerTests {
     public void postRequestReturnsBadRequest() throws Exception {
         when(eventsService.addEvent(any(Event.class))).thenThrow(InvalidEventException.class);
         mockMvc.perform(post("/api/event").with(csrf())
-                        .header("Authorization", tokenHelper.getToken("TEST-USER", Arrays.asList(new SimpleGrantedAuthority("USER"))))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(new Event())))
                 .andDo(print())

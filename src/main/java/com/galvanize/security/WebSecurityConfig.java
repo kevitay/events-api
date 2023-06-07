@@ -55,6 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/event/{id}").hasRole("USER")
                 .antMatchers(HttpMethod.PATCH, "/api/event/{id}").hasRole("USER")
                 .antMatchers(HttpMethod.POST, "/api/event").hasRole("USER")
+//                Event Image
+                .antMatchers(HttpMethod.GET, "/api/event/{id}/eventImages").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/event/{id}/eventImages").permitAll()
                 // Everything else requires authentication
                 .anyRequest().authenticated();
     }

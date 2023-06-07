@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,7 +20,8 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity    // Enable security config. This annotation denotes config for spring security.
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     final
@@ -49,10 +51,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/event/extended").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/event/extended/{id}").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/event/{id}").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/event/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.PUT, "/api/event/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.PATCH, "/api/event/{id}").hasRole("USER")
-                .antMatchers(HttpMethod.POST, "/api/event").hasRole("USER")
+                .antMatchers(HttpMethod.DELETE, "/api/event/{id}").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/event/{id}").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/api/event/{id}").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/event").permitAll()
                 // Everything else requires authentication
                 .anyRequest().authenticated();
     }

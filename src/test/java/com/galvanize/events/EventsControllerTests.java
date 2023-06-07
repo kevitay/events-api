@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Arrays;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -225,7 +226,7 @@ public class EventsControllerTests {
         //String jsonEvent = "{\"creatorId\": \"aabbcc1234\",\"organization\": \"Phils Buds\",\"name\": \"St. Patricks Bar Crawl '01\",\"type\": \"Social\",\"description\": \"Phil's 21st Birthday Pub Crawl\",\"startDateTime\": \"2001-01-01T16:00-04:00\",\"endDateTime\": \"2001-01-02T02:00-04:00\",\"startLocation\": {\"name\": \"Phil's Tiki Bar\",\"address\": \"123 Example St\",\"city\": \"Normal\",\"state\": \"IL\",\"zipCode\": 61761},\"endLocation\": {\"name\": \"Greg's Oldtowne Tavern\",\"address\": \"123 Example St\",\"city\": \"Normal\",\"state\": \"IL\",\"zipCode\": 61761},\"participantListId\": \"1\",\"base_cost\": \"50\",\"total_cost\": \"50\",\"status\": \"planned\",\"isPublic\": false}";
         Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl",50.01, "planned", false);
         when(eventsService.addEvent(any(Event.class))).thenReturn(newEvent);
-        mockMvc.perform(post("/api/event")
+        mockMvc.perform(post("/api/event").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(newEvent)))
                 .andDo(print())
@@ -240,7 +241,7 @@ public class EventsControllerTests {
     @Test
     public void postRequestReturnsBadRequest() throws Exception {
         when(eventsService.addEvent(any(Event.class))).thenThrow(InvalidEventException.class);
-        mockMvc.perform(post("/api/event")
+        mockMvc.perform(post("/api/event").with(csrf())
                         .header("Authorization", tokenHelper.getToken("TEST-USER", Arrays.asList(new SimpleGrantedAuthority("USER"))))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(new Event())))
@@ -251,7 +252,7 @@ public class EventsControllerTests {
     @WithMockUser(username = "TEST-USER", roles = "USER")
     @Test
     public void deleteEvent() throws Exception {
-        mockMvc.perform(delete("/api/event/10"))
+        mockMvc.perform(delete("/api/event/10").with(csrf()))
                 .andExpect(status().isAccepted());
         verify(eventsService).deleteEvent(ArgumentMatchers.anyLong());
     }
@@ -260,7 +261,7 @@ public class EventsControllerTests {
     @Test
     public void deleteUnknownIdThrowsNoContent() throws Exception {
         doThrow(new EventNotFoundException()).when(eventsService).deleteEvent(ArgumentMatchers.anyLong());
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/event/10"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/event/10").with(csrf()))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
@@ -270,7 +271,7 @@ public class EventsControllerTests {
     public void putEvent_returnsUpdatedEvent() throws Exception {
        Event newEvent = new Event("AAADDD", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", false);
         when(eventsService.addEvent(any(Event.class))).thenReturn(newEvent);
-        mockMvc.perform(post("/api/event")
+        mockMvc.perform(post("/api/event").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(newEvent)))
                 .andExpect(status().isCreated());
@@ -278,7 +279,7 @@ public class EventsControllerTests {
         newEvent.setName("Different Name");
         newEvent.setDescription("New Birthday Bash");
         when(eventsService.updateEvent(anyLong(), any(Event.class))).thenReturn(newEvent);
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(newEvent)))
                 .andExpect(status().isOk())
@@ -291,7 +292,7 @@ public class EventsControllerTests {
     @Test
     public void updateThrowsBadRequest() throws Exception {
         doThrow(new InvalidEventException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.any(Event.class));
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(new Event())))
                 .andDo(print())
@@ -302,7 +303,7 @@ public class EventsControllerTests {
     @Test
     public void updateUnknownIdThrowsNoContent() throws Exception {
         doThrow(new EventNotFoundException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.any(Event.class));
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/event/10").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(new Event())))
                 .andDo(print())
@@ -317,7 +318,7 @@ public class EventsControllerTests {
         Long id = updatedEvent.getId();
 
         when(eventsService.updateEvent(anyLong(), ArgumentMatchers.anyString())).thenReturn(updatedEvent);
-        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\": \"upcoming\"}"))
                 .andDo(print())
@@ -330,7 +331,7 @@ public class EventsControllerTests {
     @Test
     public void updateStatusUnknownIdThrowsNoContent() throws Exception {
         doThrow(new EventNotFoundException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.anyString());
-        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\": \"upcoming\"}"))
                 .andDo(print())
@@ -341,7 +342,7 @@ public class EventsControllerTests {
     @Test
     public void updateStatusThrowsInvalidUpdateException() throws Exception {
         doThrow(new InvalidEventUpdateException()).when(eventsService).updateEvent(anyLong(), ArgumentMatchers.anyString());
-        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10")
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/event/10").with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\": \"upcoming\"}"))
                 .andDo(print())

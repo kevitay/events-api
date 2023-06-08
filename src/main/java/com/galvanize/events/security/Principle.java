@@ -1,4 +1,4 @@
-package com.galvanize.security;
+package com.galvanize.events.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

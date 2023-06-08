@@ -1,7 +1,7 @@
 package com.galvanize.events;
 
 
-import com.galvanize.security.JwtProperties;
+import com.galvanize.events.security.JwtProperties;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;

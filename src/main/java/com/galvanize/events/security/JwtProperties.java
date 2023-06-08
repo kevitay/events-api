@@ -1,4 +1,4 @@
-package com.galvanize.security;
+package com.galvanize.events.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

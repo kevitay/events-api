@@ -1,4 +1,4 @@
-package com.galvanize.security;
+package com.galvanize.events.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

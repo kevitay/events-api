@@ -12,4 +12,5 @@ public interface EventsRepository extends JpaRepository<Event, Long> {
 
     List<Event> findByCreatorID(String creatorId);
 
+    List<Event> findByIsPublic(Boolean isPublic);
 }

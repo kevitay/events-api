@@ -16,6 +16,7 @@ public class Event {
     private String description;
     private Double baseCost;
     private String status; //todo change to enum
+    @Column(name = "public_event")
     private Boolean isPublic;
 
     public Event() {

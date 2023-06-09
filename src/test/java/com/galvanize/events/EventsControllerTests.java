@@ -45,6 +45,22 @@ public class EventsControllerTests {
     EventsService eventsService;
     ObjectMapper mapper = new ObjectMapper();
 
+   @WithMockUser(username = "TEST-USER", roles = "USER")
+   @Test
+   public void getEventsReturnEvents() throws Exception {
+       EventList existingEventList = new EventList();
+       existingEventList.add(new Event("Bob", "Phils Buds", "St. Patricks Bar Crawl", "Social", "21st Birthday Pub Crawl", 50.01, "planned", true));
+       when(eventsService.getEvents()).thenReturn(existingEventList);
+       mockMvc.perform(MockMvcRequestBuilders.get("/api/event"))
+               .andDo(print())
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(jsonPath("$.eventList[0].creatorID").value("Bob"))
+               .andExpect(jsonPath("$.eventList[0].organization").value("Phils Buds"))
+               .andExpect(jsonPath("$.eventList[0].name").value("St. Patricks Bar Crawl"))
+               .andExpect(jsonPath("$.eventList[0].description").value("21st Birthday Pub Crawl"))
+               .andExpect(jsonPath("$.eventList[0].public").value(true));
+   }
+
     @WithMockUser(username = "TEST-USER", roles = "USER")
     @Test
     public void initialGetNoEvents() throws Exception {

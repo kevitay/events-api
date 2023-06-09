@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.Specification.where;
+
 
 @Service
 public class EventsService {
@@ -15,7 +17,7 @@ public class EventsService {
     }
 
     public EventList getEvents() {
-        return new EventList(eventsRepository.findAll());
+       return new EventList(eventsRepository.findByIsPublic(true));
     }
 
     public Event getEventById(Long id) {

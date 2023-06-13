@@ -110,9 +110,18 @@ public class EventsController {
         ArrayList<Long> eventIdArray = new ArrayList<>();
         eventIdArray.add(event.getId());
 
-        //then send that list to itinerary API to get dates and locations
-        ExtEvent extEvent;
+        // Create instance of extEvent to start building our response body
+        ExtEvent extEvent = new ExtEvent(event.getId(),
+                event.getCreatorID(),
+                event.getOrganization(),
+                event.getName(),
+                event.getType(),
+                event.getDescription(),
+                event.getBaseCost(),
+                event.getStatus(),
+                event.getPublic());
 
+        //then send that list of one event to itinerary API to get dates and locations
 //       todo add try catch block
             String url = "http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/summaryList";
             HttpHeaders headers = new HttpHeaders();
@@ -126,16 +135,6 @@ public class EventsController {
             for (int i = 0; i < response.getBody().getEventSummaryList().size(); i++) {
 //          Iterate over original event list to locate matching event for the current eventSummary
                 if (event.getId() == response.getBody().getEventSummaryList().get(i).getEventId()) {
-                        //Create instance of extEvent to start building our response body
-                        extEvent = new ExtEvent(event.getId(),
-                                event.getCreatorID(),
-                                event.getOrganization(),
-                                event.getName(),
-                                event.getType(),
-                                event.getDescription(),
-                                event.getBaseCost(),
-                                event.getStatus(),
-                                event.getPublic());
 
                         //Look at Response body to make sure Activity is present and populate the Hashmap to convert from Activity to desired format
                         if (response.getBody().getEventSummaryList().get(i).getStartingActivity() != null) {
@@ -157,13 +156,12 @@ public class EventsController {
                             endAddress.put("zipcode", response.getBody().getEventSummaryList().get(i).getEndingActivity().getZipToString());
                             extEvent.setEndLocation(endAddress);
 
-                            String endTime = response.getBody().get(i).getEndingActivity().getEndTime();
+                            String endTime = response.getBody().getEventSummaryList().get(i).getEndingActivity().getEndTime();
                             extEvent.setEndDateTime(endTime);
                         }
-                    return extEvent;
                 }
             }
-        return new ExtEvent();
+        return extEvent;
     }
 
     @GetMapping("/{id}")

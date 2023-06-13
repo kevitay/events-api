@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 @CrossOrigin
@@ -58,7 +59,7 @@ public class EventsController {
             for (int i = 0; i < response.getBody().getEventSummaryList().size(); i++) {
 //          Iterate over original event list to locate matching event for the current eventSummary
                 for (int j = 0; j < eventList.size(); j++) {
-                    if (eventList.get(j).getId() == response.getBody().getEventSummaryList().get(i).getEventId()) {
+                    if (Objects.equals(eventList.get(j).getId(), response.getBody().getEventSummaryList().get(i).getEventId())) {
                         //Create instance of extEvent to start building our response body
                         ExtEvent extEvent = new ExtEvent(eventList.get(j).getId(),
                                 eventList.get(j).getCreatorID(),
@@ -134,7 +135,7 @@ public class EventsController {
 //          Iterate over each entry in the eventSummaryList returned from itinerary
             for (int i = 0; i < response.getBody().getEventSummaryList().size(); i++) {
 //          Iterate over original event list to locate matching event for the current eventSummary
-                if (event.getId() == response.getBody().getEventSummaryList().get(i).getEventId()) {
+                if (Objects.equals(event.getId(), response.getBody().getEventSummaryList().get(i).getEventId())) {
 
                         //Look at Response body to make sure Activity is present and populate the Hashmap to convert from Activity to desired format
                         if (response.getBody().getEventSummaryList().get(i).getStartingActivity() != null) {
